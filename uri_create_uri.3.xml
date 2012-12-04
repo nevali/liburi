@@ -122,7 +122,7 @@
 	<title>See also</title>
 	<para>
 	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-	  <citerefentry><refentrytitle><ulink url="uri_create_str.3.html">uri_create_uri</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_create_str.3.html">uri_create_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
 	  <citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
 <citerefentry><refentrytitle><ulink url="uri_absolute.3.html">uri_absolute</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
 <citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
