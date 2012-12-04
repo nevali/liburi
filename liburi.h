@@ -33,7 +33,7 @@ extern "C" {
 	URI *uri_create_str(const char *restrict uristr, const URI *restrict uri);
 	
 	/* Create a URI from an existing URI and optional base URI */
-	URI *uri_create_uri(URI *restrict source, const URI *restrict base);
+	URI *uri_create_uri(const URI *restrict source, const URI *restrict base);
 
 	/* Destroy a URI, freeing the resources it uses */
 	int uri_destroy(URI *uri);
