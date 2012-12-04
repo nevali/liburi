@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry xml:id="uname-1" xmlns="http://docbook.org/ns" version="5.0" xml:lang="en">
+<refentry version="5.0" xml:id="liburi-3" xmlns="http://docbook.org/ns" xml:lang="en">
   <info>
-	<title>Library Functions</title>
-	<productname>System Developer's Manual</productname>
+	<title>URI Functions</title>
+	<productname>System Programmer's Manual</productname>
 	<authorgroup>
 	  <author>
 		<personname>
@@ -40,6 +40,11 @@
   
   <refsect1>
 	<title>Description</title>
+	<para>
+	  The <package>liburi</package> library provides facilities for parsing
+	  and recomposing Universal Resource Identifiers (URIs) and
+	  Internationalized Resource Identifiers (IRIs).
+	</para>
   </refsect1>
   
   <refsect1>
@@ -47,10 +52,46 @@
 	<variablelist>
 
 	  <varlistentry>
-		<term>Creating URI objects</term>
+		<term>Create a URI instance:</term>
 		<listitem>
 		  <para>
-			
+			<citerefentry><refentrytitle><ulink url="uri_create_str.3.html">uri_create_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_create_uri.3.html">uri_create_uri</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+		<term>Free resources used by a URI instance:</term>
+		<listitem>
+		  <para>
+			<citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+
+	  <varlistentry>
+		<term>Obtain the parsed URI as a string:</term>
+		<listitem>
+		  <para>
+			<citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+		<term>Obtain parsed components of the URI:</term>
+		<listitem>
+		  <para>
+			<citerefentry><refentrytitle><ulink url="uri_scheme.3.html">uri_scheme</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_auth.3.html">uri_auth</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_host.3.html">uri_host</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_port.3.html">uri_port</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_portnum.3.html">uri_portnum</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_path.3.html">uri_path</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_query.3.html">uri_query</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_fragment.3.html">uri_fragment</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 		  </para>
 		</listitem>
 	  </varlistentry>
@@ -61,15 +102,29 @@
   <refsect1>
 	<title>See also</title>
 	<para>
-	  <citerefentry>
-		<refentrytitle>uri_create_str</refentrytitle>
-		<manvolnum>3</manvolnum>
-	  </citerefentry>,
-	  <citerefentry>
-		<refentrytitle>uri_destroy</refentrytitle>
-		<manvolnum>3</manvolnum>
-	  </citerefentry>.
+	  <citerefentry><refentrytitle><ulink url="uriparse.1.html">uriparse</ulink></refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_create_str.3.html">uri_create_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_create_uri.3.html">uri_create_uri</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_scheme.3.html">uri_scheme</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_auth.3.html">uri_auth</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_host.3.html">uri_host</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_port.3.html">uri_port</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_portnum.3.html">uri_portnum</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_path.3.html">uri_path</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_query.3.html">uri_query</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_fragment.3.html">uri_fragment</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
   </refsect1>
 
+  <refsect1>
+	<title>History</title>
+	<para>
+	  The <package>liburi</package> library implements an alternative API to
+	  that provided by the
+	  <package><ulink url="http://uriparser.sourceforge.net/">uriparser</ulink></package> library, which <package>liburi</package> uses internally.
+	</para>
+  </refsect1>
+  
 </refentry>

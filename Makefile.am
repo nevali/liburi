@@ -16,9 +16,12 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = uriparser . t util m4
 
-doc_DATA = README.md LICENSE-2.0 liburi.3.html
+doc_DATA = README.md LICENSE-2.0 \
+	liburi.3.html \
+	uri_create_str.3.html
 
-man3_MANS = liburi.3
+man3_MANS = liburi.3 \
+	uri_create_str.3
 
 lib_LTLIBRARIES = liburi.la
 
@@ -33,17 +36,18 @@ liburi_la_LDFLAGS = -avoid-version -export-symbols-regex '^uri_[a-z]'
 
 liburi_la_LIBADD = uriparser/liburiparser.la
 
-%.1: %.1.xml
-	$(XML2MAN) $<
+SUFFIXES = .3.xml .3.html .3 .1.xml .1.html .1
 
-%.3: %.3.xml
-	$(XML2MAN) $<
-
-%.1.html: %.1.xml
+.1.xml.1.html:
 	$(XML2HTML) $< > $@
 
-%.3.html: %.3.xml
+.3.xml.3.html:
 	$(XML2HTML) $< > $@
+
+.1.xml.1:
+	$(XML2MAN) $<
+.3.xml.3:
+	$(XML2MAN) $<
 
 test:
 	$(MAKE) -C t
