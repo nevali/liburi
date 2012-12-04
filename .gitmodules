@@ -1,0 +1,3 @@
+[submodule "uriparser"]
+	path = uriparser
+	url = git://uriparser.git.sourceforge.net/gitroot/uriparser/uriparser

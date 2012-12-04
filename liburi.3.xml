@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xml:id="uname-1" xmlns="http://docbook.org/ns" version="5.0" xml:lang="en">
+  <info>
+	<title>Library Functions</title>
+	<productname>System Developer's Manual</productname>
+	<authorgroup>
+	  <author>
+		<personname>
+		  <firstname>Mo</firstname>
+		  <surname>McRoberts</surname>
+		</personname>
+	  </author>
+	</authorgroup>
+	<copyright>
+	  <year>2012</year>
+	  <holder>Mo McRoberts</holder>
+	</copyright>
+  </info>
+  
+  <refmeta>
+	<refentrytitle>liburi</refentrytitle>
+	<manvolnum>3</manvolnum>
+  </refmeta>
+  
+  <refnamediv>
+	<refname>liburi</refname>
+	<refpurpose>parse URIs and IRIs</refpurpose>
+  </refnamediv>
+  
+  <refsect1>
+	<title>Library</title>
+	<para>URI parsing library (liburi, -luri)</para>
+  </refsect1>
+
+  <refsynopsisdiv>
+	<funcsynopsis>
+	  <funcsynopsisinfo>#include &lt;liburi.h&gt;</funcsynopsisinfo>
+	</funcsynopsis>
+  </refsynopsisdiv>
+  
+  <refsect1>
+	<title>Description</title>
+  </refsect1>
+  
+  <refsect1>
+	<title>Tasks</title>
+	<variablelist>
+
+	  <varlistentry>
+		<term>Creating URI objects</term>
+		<listitem>
+		  <para>
+			
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	</variablelist>
+  </refsect1>
+
+  <refsect1>
+	<title>See also</title>
+	<para>
+	  <citerefentry>
+		<refentrytitle>uri_create_str</refentrytitle>
+		<manvolnum>3</manvolnum>
+	  </citerefentry>,
+	  <citerefentry>
+		<refentrytitle>uri_destroy</refentrytitle>
+		<manvolnum>3</manvolnum>
+	  </citerefentry>.
+	</para>
+  </refsect1>
+
+</refentry>

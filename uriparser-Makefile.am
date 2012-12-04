@@ -1,0 +1,102 @@
+## Derived from uriparser/Makefile.am
+##
+## uriparser - RFC 3986 URI parsing library
+## 
+## Copyright (C) 2007, Weijia Song <songweijia@gmail.com>
+## Copyright (C) 2007, Sebastian Pipping <webmaster@hartwork.org>
+## All rights reserved.
+## 
+## Redistribution  and use in source and binary forms, with or without
+## modification,  are permitted provided that the following conditions
+## are met:
+## 
+##     * Redistributions   of  source  code  must  retain  the   above
+##       copyright  notice, this list of conditions and the  following
+##       disclaimer.
+## 
+##     * Redistributions  in  binary  form must  reproduce  the  above
+##       copyright  notice, this list of conditions and the  following
+##       disclaimer   in  the  documentation  and/or  other  materials
+##       provided with the distribution.
+## 
+##     * Neither  the name of the <ORGANIZATION> nor the names of  its
+##       contributors  may  be  used to endorse  or  promote  products
+##       derived  from  this software without specific  prior  written
+##       permission.
+##
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS  IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT  NOT
+## LIMITED  TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND  FITNESS
+## FOR  A  PARTICULAR  PURPOSE ARE DISCLAIMED. IN NO EVENT  SHALL  THE
+## COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+## INCIDENTAL,    SPECIAL,   EXEMPLARY,   OR   CONSEQUENTIAL   DAMAGES
+## (INCLUDING,  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+## HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+## STRICT  LIABILITY,  OR  TORT (INCLUDING  NEGLIGENCE  OR  OTHERWISE)
+## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+## OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+## Makefile.am
+DIST_SUBDIRS = doc
+
+noinst_LTLIBRARIES = liburiparser.la
+
+noinst_DATA = liburiparser.pc
+
+pkginclude_HEADERS = \
+	include/uriparser/Uri.h \
+	include/uriparser/UriBase.h \
+	include/uriparser/UriDefsAnsi.h \
+	include/uriparser/UriDefsConfig.h \
+	include/uriparser/UriDefsUnicode.h \
+	include/uriparser/UriIp4.h
+
+
+liburiparser_la_LDFLAGS = -version-info 1:12:0
+
+liburiparser_la_SOURCES = \
+	src/UriCommon.c \
+	src/UriCommon.h \
+	src/UriCompare.c \
+	src/UriEscape.c \
+	src/UriFile.c \
+	src/UriIp4.c \
+	src/UriIp4Base.c \
+	src/UriIp4Base.h \
+	src/UriNormalize.c \
+	src/UriNormalizeBase.c \
+	src/UriNormalizeBase.h \
+	src/UriParse.c \
+	src/UriParseBase.c \
+	src/UriParseBase.h \
+	src/UriQuery.c \
+	src/UriRecompose.c \
+	src/UriResolve.c \
+	src/UriShorten.c
+
+EXTRA_DIST = \
+	doc/Doxyfile.in \
+	doc/Mainpage \
+	doc/Makefile.am \
+	doc/Makefile.in \
+	doc/preprocess.sh \
+	doc/release.sh.in \
+	doc/rfc1866.htm \
+	doc/rfc3513.htm \
+	doc/rfc3986.htm \
+	doc/rfc3986_grammar_only.txt \
+	doc/rule_dependencies.dot \
+	doc/rule_dependencies.sh \
+	\
+	win32/Code_Blocks/test.cbp \
+	win32/Code_Blocks/uriparser.cbp \
+	win32/Code_Blocks/uriparser.workspace \
+	\
+	win32/MinGW/Makefile \
+	win32/MinGW/Readme.txt \
+	\
+	win32/Visual_Studio_2005/test.vcproj \
+	win32/Visual_Studio_2005/uriparser.sln \
+	win32/Visual_Studio_2005/uriparser.vcproj
