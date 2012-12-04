@@ -126,6 +126,33 @@
   </refsect1>
 
   <refsect1>
+	<title>Examples</title>
+	<para>Parsing an absolute URI:</para>
+	<programlisting language="c">
+URI *uri;
+
+uri = uri_create_str("http://example.com/sample", NULL);
+	</programlisting>
+
+	<para>
+	  Parsing a relative URI, and resolving it against an absolute
+	  base URI:
+	</para>
+
+	<programlisting language="c">
+URI *base, *uri;
+
+base = uri_create_str("http://example.com/sample", NULL);
+
+/* The result would be as though the string being parsed had been:
+ *    http://example.com/switch?toggle=1
+ */
+uri = uri_create_str("switch?toggle=1", base);
+	</programlisting>
+	
+  </refsect1>
+
+  <refsect1>
 	<title>See also</title>
 	<para>
 	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,

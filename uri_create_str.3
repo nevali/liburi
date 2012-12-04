@@ -94,6 +94,42 @@ The URI was not well\-formed and could not be parsed\&.
 .RS 4
 A memory allocation operation failed\&.
 .RE
+.SH "EXAMPLES"
+.PP
+Parsing an absolute URI:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+URI *uri;
+
+uri = uri_create_str("http://example\&.com/sample", NULL);
+	
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+Parsing a relative URI, and resolving it against an absolute base URI:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+URI *base, *uri;
+
+base = uri_create_str("http://example\&.com/sample", NULL);
+
+/* The result would be as though the string being parsed had been:
+ *    http://example\&.com/switch?toggle=1
+ */
+uri = uri_create_str("switch?toggle=1", base);
+	
+.fi
+.if n \{\
+.RE
+.\}
 .SH "SEE ALSO"
 .PP
 

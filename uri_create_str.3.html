@@ -117,7 +117,7 @@ hr.footnote-hr {
 	 — parse a URI or IRI
   </p></div>
   
-  <div class="refsect1" id="idp22192"><h2>Library</h2>
+  <div class="refsect1" id="idp19312"><h2>Library</h2>
 	
 	<p>URI parsing library (liburi, -luri)</p>
   </div>
@@ -133,7 +133,7 @@ hr.footnote-hr {
 	</div>
   </div>
 
-  <div class="refsect1" id="idp3328"><h2>Description</h2>
+  <div class="refsect1" id="idp14720"><h2>Description</h2>
 	
 	<p>
 	  The <code class="function">uri_create_str</code> function parses a string in order
@@ -150,7 +150,7 @@ hr.footnote-hr {
 	</p>
   </div>
 
-  <div class="refsect1" id="idp25216"><h2>Parameters</h2>
+  <div class="refsect1" id="idp25488"><h2>Parameters</h2>
 	
 	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uristr</code></em></span></dt><dd>
 		  <p>
@@ -163,7 +163,7 @@ hr.footnote-hr {
 		</dd></dl></div>
   </div>
 
-  <div class="refsect1" id="idp27760"><h2>Return value</h2>
+  <div class="refsect1" id="idp23408"><h2>Return value</h2>
 	
 	<p>
 	  If the URI was parsed successfully, <code class="function">uri_create_str</code>
@@ -173,7 +173,7 @@ hr.footnote-hr {
 	</p>
   </div>
 
-  <div class="refsect1" id="idp43360"><h2>Diagnostics</h2>
+  <div class="refsect1" id="idp43632"><h2>Diagnostics</h2>
 	
 	<p>
 	  In the event of an error ocurring, <code class="varname">errno</code> may be
@@ -191,7 +191,34 @@ hr.footnote-hr {
 
   </div>
 
-  <div class="refsect1" id="idp48688"><h2>See also</h2>
+  <div class="refsect1" id="idp48880"><h2>Examples</h2>
+	
+	<p>Parsing an absolute URI:</p>
+	<pre class="programlisting">
+URI *uri;
+
+uri = uri_create_str("http://example.com/sample", NULL);
+	</pre>
+
+	<p>
+	  Parsing a relative URI, and resolving it against an absolute
+	  base URI:
+	</p>
+
+	<pre class="programlisting">
+URI *base, *uri;
+
+base = uri_create_str("http://example.com/sample", NULL);
+
+/* The result would be as though the string being parsed had been:
+ *    http://example.com/switch?toggle=1
+ */
+uri = uri_create_str("switch?toggle=1", base);
+	</pre>
+	
+  </div>
+
+  <div class="refsect1" id="idp51776"><h2>See also</h2>
 	
 	<p>
 	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>,
