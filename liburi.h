@@ -30,10 +30,10 @@ extern "C" {
 # endif
 
 	/* Create a URI from a string and optional base URI */
-	URI *uri_create_str(const char *restrict uristr, URI *restrict uri);
+	URI *uri_create_str(const char *restrict uristr, const URI *restrict uri);
 	
 	/* Create a URI from an existing URI and optional base URI */
-	URI *uri_create_uri(URI *restrict source, URI *restrict base);
+	URI *uri_create_uri(URI *restrict source, const URI *restrict base);
 
 	/* Destroy a URI, freeing the resources it uses */
 	int uri_destroy(URI *uri);

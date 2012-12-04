@@ -145,7 +145,7 @@ uri_preprocess_(char *restrict buf, const char *restrict uristr, size_t nbytes)
 }
 
 URI *
-uri_create_str(const char *restrict uristr, URI *restrict base)
+uri_create_str(const char *restrict uristr, const URI *restrict base)
 {
 	UriParserStateA state;
 	UriUriA absolute;
@@ -199,7 +199,7 @@ uri_create_str(const char *restrict uristr, URI *restrict base)
 }
 
 URI *
-uri_create_uri(URI *restrict source, URI *restrict base)
+uri_create_uri(URI *restrict source, const URI *restrict base)
 {
 	URI *uri;
 	UriParserStateA state;
