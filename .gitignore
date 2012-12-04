@@ -7,8 +7,6 @@
 *.exe
 *.lib
 *.dll
-*.html
-*.[1-9]
 Makefile.in
 Makefile
 /uriparser-Makefile.in

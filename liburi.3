@@ -1,0 +1,104 @@
+'\" t
+.\"     Title: liburi
+.\"    Author: Mo McRoberts
+.\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
+.\"      Date: 12/04/2012
+.\"    Manual: URI Functions
+.\"    Source: System Programmer's Manual
+.\"  Language: English
+.\"
+.TH "LIBURI" "3" "12/04/2012" "System Programmer's Manual" "URI Functions"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+liburi \- parse URIs and IRIs
+.SH "LIBRARY"
+.PP
+URI parsing library (liburi, \-luri)
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#include <liburi\&.h>
+.fi
+.ft
+.SH "DESCRIPTION"
+.PP
+The
+liburi
+library provides facilities for parsing and recomposing Universal Resource Identifiers (URIs) and Internationalized Resource Identifiers (IRIs)\&.
+.SH "TASKS"
+.PP
+Create a URI instance:
+.RS 4
+
+\fBuri_create_str\fR(3),
+\fBuri_create_uri\fR(3)\&.
+.RE
+.PP
+Free resources used by a URI instance:
+.RS 4
+
+\fBuri_destroy\fR(3)\&.
+.RE
+.PP
+Obtain the parsed URI as a string:
+.RS 4
+
+\fBuri_str\fR(3)\&.
+.RE
+.PP
+Obtain parsed components of the URI:
+.RS 4
+
+\fBuri_scheme\fR(3),
+\fBuri_auth\fR(3),
+\fBuri_host\fR(3),
+\fBuri_port\fR(3),
+\fBuri_portnum\fR(3),
+\fBuri_path\fR(3),
+\fBuri_query\fR(3),
+\fBuri_fragment\fR(3)\&.
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBuriparse\fR(1),
+\fBuri_create_str\fR(3),
+\fBuri_create_uri\fR(3),
+\fBuri_destroy\fR(3),
+\fBuri_scheme\fR(3),
+\fBuri_auth\fR(3),
+\fBuri_host\fR(3),
+\fBuri_port\fR(3),
+\fBuri_portnum\fR(3),
+\fBuri_path\fR(3),
+\fBuri_query\fR(3),
+\fBuri_fragment\fR(3),
+\fBuri_str\fR(3)\&.
+.SH "HISTORY"
+.PP
+The
+liburi
+library implements an alternative API to that provided by the
+\m[blue]\fBuriparser\fR\m[]
+library, which
+liburi
+uses internally\&.

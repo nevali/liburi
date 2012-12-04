@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0" xml:id="uri_create_uri-3" xmlns="http://docbook.org/ns" xml:lang="en">
+  <info>
+	<title>URI Functions</title>
+	<productname>System Programmer's Manual</productname>
+	<authorgroup>
+	  <author>
+		<personname>
+		  <firstname>Mo</firstname>
+		  <surname>McRoberts</surname>
+		</personname>
+	  </author>
+	</authorgroup>
+	<copyright>
+	  <year>2012</year>
+	  <holder>Mo McRoberts</holder>
+	</copyright>
+  </info>
+  
+  <refmeta>
+	<refentrytitle>uri_create_uri</refentrytitle>
+	<manvolnum>3</manvolnum>
+  </refmeta>
+  
+  <refnamediv>
+	<refname>uri_create_uri</refname>
+	<refpurpose>create a new URI from an existing URI</refpurpose>
+  </refnamediv>
+  
+  <refsect1>
+	<title>Library</title>
+	<para>URI parsing library (liburi, -luri)</para>
+  </refsect1>
+
+  <refsynopsisdiv>
+	<funcsynopsis>
+	  <funcsynopsisinfo>#include &lt;liburi.h&gt;</funcsynopsisinfo>
+	  <funcprototype>
+		<funcdef>URI *<function>uri_create_uri</function></funcdef>
+		<paramdef>const URI *restrict <parameter>uri</parameter></paramdef>
+		<paramdef>const URI *restrict <parameter>base</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+	<title>Description</title>
+	<para>
+	  The <function>uri_create_str</function> function creates a new
+	  <type>URI</type> instance from an existing URI.
+	</para>
+	<para>
+	  If <parameter>uri</parameter> is not absolute, and an absolute base
+	  URI is supplied as <parameter>base</parameter>, the source URI
+	  will be resolved relative to the base URI and the result will be
+	  an absolute URI. If no base URI is supplied, the result will be a
+	  duplicate of <parameter>uri</parameter>.
+	</para>
+	<para>
+	  The resulting instance must be freed later using <citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Parameters</title>
+	<variablelist>
+
+	  <varlistentry>
+		<term><parameter>uri</parameter></term>
+		<listitem>
+		  <para>
+			The source URI to duplicate or resolve.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+		<term><parameter>base</parameter></term>
+		<listitem>
+		  <para>
+			An optional absolute base URI. If <parameter>base</parameter> is supplied but is not an absolute URI, the results are undefined.
+		  </para>
+		</listitem>
+	  </varlistentry>
+	  
+	</variablelist>
+  </refsect1>
+
+  <refsect1>
+	<title>Return value</title>
+	<para>
+	  If the URI was duplicated or resolved successfully,
+	  <function>uri_create_uri</function> will return a new
+	  <type>URI</type> instance. If the URI could not be
+	  duplicated, or some other error occurs, <constant>NULL</constant> will
+	  be returned and <varname>errno</varname> set accordingly.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Diagnostics</title>
+	<para>
+	  In the event of an error ocurring, <varname>errno</varname> may be
+	  set to one of the following values:
+	</para>
+	<variablelist>
+
+	  <varlistentry>
+		<term><constant>ENOMEM</constant></term>
+		<listitem>
+		  <para>
+			A  memory allocation operation failed.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	</variablelist>
+
+  </refsect1>
+
+  <refsect1>
+	<title>See also</title>
+	<para>
+	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_create_str.3.html">uri_create_uri</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+<citerefentry><refentrytitle><ulink url="uri_absolute.3.html">uri_absolute</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+<citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>
+  </refsect1>
+  
+</refentry>

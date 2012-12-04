@@ -1,0 +1,104 @@
+'\" t
+.\"     Title: uri_create_str
+.\"    Author: Mo McRoberts
+.\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
+.\"      Date: 12/04/2012
+.\"    Manual: URI Functions
+.\"    Source: System Programmer's Manual
+.\"  Language: English
+.\"
+.TH "URI_CREATE_STR" "3" "12/04/2012" "System Programmer's Manual" "URI Functions"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+uri_create_str \- parse a URI or IRI
+.SH "LIBRARY"
+.PP
+URI parsing library (liburi, \-luri)
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#include <liburi\&.h>
+.fi
+.ft
+.HP \w'URI\ *uri_create_str('u
+.BI "URI *uri_create_str(const\ char\ *restrict\ " "uristr" ", const\ URI\ *restrict\ " "base" ");"
+.SH "DESCRIPTION"
+.PP
+The
+\fBuri_create_str\fR
+function parses a string in order to produce a
+\fBURI\fR
+instance\&. If the URI to be parsed in
+\fIuristr\fR
+is not absolute, and an absolute base URI is supplied as
+\fIbase\fR, the parsed URI will be resolved relative to the base URI and the result will be an absolute URI\&. If no base URI is supplied, the resulting URI instance may be either absolute or relative, depending upon the contents of
+\fIuristr\fR\&.
+.PP
+The resulting instance must be freed later using
+\fBuri_destroy\fR(3)\&.
+.SH "PARAMETERS"
+.PP
+\fIuristr\fR
+.RS 4
+A string to parse as a URI or IRI\&.
+.RE
+.PP
+\fIbase\fR
+.RS 4
+An optional absolute base URI\&. If
+\fIbase\fR
+is supplied but is not an absolute URI, the results are undefined\&.
+.RE
+.SH "RETURN VALUE"
+.PP
+If the URI was parsed successfully,
+\fBuri_create_str\fR
+will return a new
+\fBURI\fR
+instance\&. If the URI could not be parsed, or some other error occurs,
+\fBNULL\fR
+will be returned and
+\fIerrno\fR
+set accordingly\&.
+.SH "DIAGNOSTICS"
+.PP
+In the event of an error ocurring,
+\fIerrno\fR
+may be set to one of the following values:
+.PP
+\fBEINVAL\fR
+.RS 4
+The URI was not well\-formed and could not be parsed\&.
+.RE
+.PP
+\fBENOMEM\fR
+.RS 4
+A memory allocation operation failed\&.
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBliburi\fR(3),
+\fBuri_create_uri\fR(3),
+\fBuri_destroy\fR(3),
+\fBuri_absolute\fR(3),
+\fBuri_str\fR(3)\&.
