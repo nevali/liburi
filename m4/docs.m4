@@ -35,6 +35,7 @@ if test x"$build_docs" = x"yes" || test x"$build_docs" = x"auto" ; then
 	  XML2HTML='${XSLTPROC} -nonet \
 	    -param docbook.css.link 0 \
 		-param generate.css.header 1 \
+		-param funcsynopsis.style ansi \
 	    http://docbook.sourceforge.net/release/xsl-ns/current/xhtml5/docbook.xsl'
    fi
 else
