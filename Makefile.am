@@ -18,10 +18,10 @@ SUBDIRS = uriparser . t util m4
 
 doc_DATA = README.md LICENSE-2.0 \
 	liburi.3.html \
-	uri_create_str.3.html uri_create_uri.3.html
+	uri_create_str.3.html uri_create_uri.3.html uri_destroy.3.html
 
 dist_man3_MANS = liburi.3 \
-	uri_create_str.3 uri_create_uri.3
+	uri_create_str.3 uri_create_uri.3 uri_destroy.3
 
 lib_LTLIBRARIES = liburi.la
 
