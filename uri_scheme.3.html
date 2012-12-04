@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>uri_scheme</title><style type="text/css">
+
+/********************************/
+/* start of styles in block.xsl */
+
+.formalpara-title {
+  font-weight: bold;
+}
+
+div.blockquote-title {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgmain-title {
+  font-weight: bold;
+}
+
+span.msgsub-title {
+  font-weight: bold;
+}
+
+span.msgrel-title {
+  font-weight: bold;
+}
+
+div.msglevel, div.msgorig, div.msgaud {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msglevel-title, span.msgorig-title, span.msgaud-title {
+  font-weight: bold;
+}
+
+div.msgexplan {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgexplan-title {
+  font-weight: bold;
+}
+
+/* end of styles in block.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in autotoc.xsl */
+
+
+/* end of styles in autotoc.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in formal.xsl */
+
+div.figure-title {
+  font-weight: bold;
+}
+
+div.example-title {
+  font-weight: bold;
+}
+
+div.equation-title {
+  font-weight: bold;
+}
+
+div.table-title {
+  font-weight: bold;
+}
+
+div.sidebar-title {
+  font-weight: bold;
+}
+
+
+/* end of styles in formal.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in verbatim.xsl */
+
+div.programlisting {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.screen {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.synopsis {
+  white-space: pre;
+  font-family: monospace;
+}
+
+/* end of styles in verbatim.xsl */
+/********************************/
+
+/* footnote rule */
+hr.footnote-hr {
+  width: 100;
+}
+
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/></head><body><div xml:lang="en" class="refentry" id="uri_create_uri-3"><div class="titlepage"/>
+  
+  
+  
+  
+  <div class="refnamediv"><h2>Name</h2><p>
+	uri_scheme
+	 — copy a URI's scheme into a buffer
+  </p></div>
+  
+  <div class="refsect1" id="idp22192"><h2>Library</h2>
+	
+	<p>URI parsing library (liburi, -luri)</p>
+  </div>
+
+  <div class="refsynopsisdiv"><h2>Synopsis</h2>
+	<div class="funcsynopsis">
+	  <pre class="funcsynopsisinfo">#include &lt;liburi.h&gt;</pre>
+	  <p>
+		<code class="funcdef">size_t <strong class="fsfunc">uri_scheme</strong>(</code>
+		URI *restrict <var class="pdparam">uri</var>, 
+		char * <var class="pdparam">buffer</var>, 
+		size_t <var class="pdparam">size</var><code>)</code>;
+	  </p>
+	</div>
+  </div>
+
+  <div class="refsect1" id="idp6816"><h2>Description</h2>
+	
+	<p>
+	  The <code class="function">uri_scheme</code> copies the scheme from a URI
+	  into a supplied buffer.
+	</p>
+  </div>
+
+  <div class="refsect1" id="idp28704"><h2>Parameters</h2>
+	
+	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uri</code></em></span></dt><dd>
+		  <p>
+			The source URI to copy the scheme from.
+		  </p>
+		</dd><dt><span class="term"><em class="parameter"><code>buffer</code></em></span></dt><dd>
+		  <p>
+			The buffer to store the URI's scheme in. <em class="parameter"><code>buffer</code></em>
+			may be <code class="constant">NULL</code> to simply obtain the return
+			value.
+		  </p>
+		  <p>
+			The string stored in <em class="parameter"><code>buffer</code></em> will always be
+			<code class="constant">NULL</code>-terminated, even if the buffer is not
+			large enough to hold the entire string, provided
+			<em class="parameter"><code>buffer</code></em> is not-NULL and
+			<em class="parameter"><code>size</code></em> is non-zero.
+		  </p>
+		</dd><dt><span class="term"><em class="parameter"><code>size</code></em></span></dt><dd>
+		  <p>
+			The size of <em class="parameter"><code>buffer</code></em>, in bytes.
+		  </p>
+		</dd></dl></div>
+  </div>
+
+  <div class="refsect1" id="idp42592"><h2>Return value</h2>
+	
+	<p>
+	  If successful, <code class="function">uri_scheme</code> returns the total number
+	  of bytes required to store the URI's scheme, including the
+	  <code class="constant">NULL</code> terminator (that is, one greater than
+	  the length of the string measured in bytes). This return will
+	  occur whether a buffer is supplied or not, and regardless of its size.
+	</p>
+	<p>
+	  If an error occurs, <code class="function">uri_scheme</code> returns
+	  <code class="literal">(size_t) -1</code>, and sets <code class="varname">errno</code>
+	  accordingly.
+	</p>
+	<p>
+	  An application can invoke <code class="function">uri_scheme</code>, passing
+	  <code class="constant">NULL</code> as <em class="parameter"><code>buffer</code></em> and
+	  <code class="literal">0</code> as <em class="parameter"><code>size</code></em> in order to
+	  obtain the size of buffer required for a subsequent call.
+	</p>
+	<p>
+	  Alternatively, if <em class="parameter"><code>buffer</code></em> was
+	  non-<code class="constant">NULL</code>, an application can compare
+	  the return value with the supplied <em class="parameter"><code>size</code></em>
+	  in order to to determine whether the copied string was truncated: if
+	  the return value is less than or equal to <em class="parameter"><code>size</code></em>,
+	  truncation did not occur.
+	</p>
+  </div>
+
+  <div class="refsect1" id="idp50656"><h2>Example</h2>
+	
+	<pre class="programlisting">
+#define BUFFER_SIZE 8
+	  
+URI *uri;
+char buffer[BUFFER_SIZE];
+size_t r;
+
+uri = uri_create_str("http://example.com/", NULL);
+r = uri_scheme(uri, buffer, BUFFER_SIZE);
+
+/* assuming no errors have occurred, buffer will contain 'http' and
+* r will be 5.
+*/
+printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
+	</pre>
+  </div>
+
+  <div class="refsect1" id="idp52256"><h2>See also</h2>
+	
+	<p>
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>.
+	</p>
+  </div>
+  
+</div></body></html>

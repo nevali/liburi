@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0" xml:id="uri_create_uri-3" xmlns="http://docbook.org/ns" xml:lang="en">
+  <info>
+	<title>URI Functions</title>
+	<productname>System Programmer's Manual</productname>
+	<authorgroup>
+	  <author>
+		<personname>
+		  <firstname>Mo</firstname>
+		  <surname>McRoberts</surname>
+		</personname>
+	  </author>
+	</authorgroup>
+	<copyright>
+	  <year>2012</year>
+	  <holder>Mo McRoberts</holder>
+	</copyright>
+  </info>
+  
+  <refmeta>
+	<refentrytitle>uri_scheme</refentrytitle>
+	<manvolnum>3</manvolnum>
+  </refmeta>
+  
+  <refnamediv>
+	<refname>uri_scheme</refname>
+	<refpurpose>copy a URI's scheme into a buffer</refpurpose>
+  </refnamediv>
+  
+  <refsect1>
+	<title>Library</title>
+	<para>URI parsing library (liburi, -luri)</para>
+  </refsect1>
+
+  <refsynopsisdiv>
+	<funcsynopsis>
+	  <funcsynopsisinfo>#include &lt;liburi.h&gt;</funcsynopsisinfo>
+	  <funcprototype>
+		<funcdef>size_t <function>uri_scheme</function></funcdef>
+		<paramdef>URI *restrict <parameter>uri</parameter></paramdef>
+		<paramdef>char * <parameter>buffer</parameter></paramdef>
+		<paramdef>size_t <parameter>size</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+	<title>Description</title>
+	<para>
+	  The <function>uri_scheme</function> copies the scheme from a URI
+	  into a supplied buffer.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Parameters</title>
+	<variablelist>
+
+	  <varlistentry>
+		<term><parameter>uri</parameter></term>
+		<listitem>
+		  <para>
+			The source URI to copy the scheme from.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+		<term><parameter>buffer</parameter></term>
+		<listitem>
+		  <para>
+			The buffer to store the URI's scheme in. <parameter>buffer</parameter>
+			may be <constant>NULL</constant> to simply obtain the return
+			value.
+		  </para>
+		  <para>
+			The string stored in <parameter>buffer</parameter> will always be
+			<constant>NULL</constant>-terminated, even if the buffer is not
+			large enough to hold the entire string, provided
+			<parameter>buffer</parameter> is not-NULL and
+			<parameter>size</parameter> is non-zero.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+		<term><parameter>size</parameter></term>
+		<listitem>
+		  <para>
+			The size of <parameter>buffer</parameter>, in bytes.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	</variablelist>
+  </refsect1>
+
+  <refsect1>
+	<title>Return value</title>
+	<para>
+	  If successful, <function>uri_scheme</function> returns the total number
+	  of bytes required to store the URI's scheme, including the
+	  <constant>NULL</constant> terminator (that is, one greater than
+	  the length of the string measured in bytes). This return will
+	  occur whether a buffer is supplied or not, and regardless of its size.
+	</para>
+	<para>
+	  If an error occurs, <function>uri_scheme</function> returns
+	  <literal>(size_t) -1</literal>, and sets <varname>errno</varname>
+	  accordingly.
+	</para>
+	<para>
+	  An application can invoke <function>uri_scheme</function>, passing
+	  <constant>NULL</constant> as <parameter>buffer</parameter> and
+	  <literal>0</literal> as <parameter>size</parameter> in order to
+	  obtain the size of buffer required for a subsequent call.
+	</para>
+	<para>
+	  Alternatively, if <parameter>buffer</parameter> was
+	  non-<constant>NULL</constant>, an application can compare
+	  the return value with the supplied <parameter>size</parameter>
+	  in order to to determine whether the copied string was truncated: if
+	  the return value is less than or equal to <parameter>size</parameter>,
+	  truncation did not occur.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Example</title>
+	<programlisting language="c">
+#define BUFFER_SIZE 8
+	  
+URI *uri;
+char buffer[BUFFER_SIZE];
+size_t r;
+
+uri = uri_create_str("http://example.com/", NULL);
+r = uri_scheme(uri, buffer, BUFFER_SIZE);
+
+/* assuming no errors have occurred, buffer will contain 'http' and
+* r will be 5.
+*/
+printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
+	</programlisting>
+  </refsect1>
+
+  <refsect1>
+	<title>See also</title>
+	<para>
+	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>
+  </refsect1>
+  
+</refentry>
