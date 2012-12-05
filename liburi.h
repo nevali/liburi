@@ -40,6 +40,11 @@ extern "C" {
 
 	/* Return 1 if the URI specified is absolute, 0 if it is relative */
 	int uri_absolute(URI *uri);
+
+	/* Return 1 if the path in the URI specified is absolute, 0 if it is
+	 * relative
+	 */
+	int uri_absolute_path(URI *uri);
 	
 	/* Copy the URI's scheme into the buffer provided */
 	size_t uri_scheme(URI *restrict uri, char *restrict buf, size_t buflen);

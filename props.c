@@ -60,7 +60,7 @@ uri_fragment(URI *restrict uri, char *restrict buf, size_t buflen)
 }
 
 int
-uri_absolute(URI *uri)
+uri_absolute_path(URI *uri)
 {
 	if(!uri->uri.pathHead)
 	{
@@ -71,6 +71,20 @@ uri_absolute(URI *uri)
 		return 1;
 	}
 	if(uri->uri.hostText.first)
+	{
+		return 1;
+	}
+	if(uri->uri.scheme.first)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int
+uri_absolute(URI *uri)
+{
+	if(uri->uri.scheme.first)
 	{
 		return 1;
 	}
@@ -94,7 +108,7 @@ uri_path(URI *restrict uri, char *restrict buf, size_t buflen)
 	}
 	total = 0;
 	bp = buf;
-	if(uri_absolute(uri))
+	if(uri_absolute_path(uri))
 	{
 		uri_addch_('/', &buf, &buflen);
 		total++;
@@ -146,13 +160,24 @@ uri_portnum(URI *uri)
 	unsigned long l;
 	
 	len = uri_port(uri, buffer, sizeof(buffer));
-	if(len == 0 || len > sizeof(buffer) || len == (size_t) -1)
+	if(len == (size_t) -1)
 	{
+		return -1;
+	}
+	if(len == 0 || len > sizeof(buffer))
+	{
+		errno = ENOENT;
+		return -1;
+	}
+	if(!buffer[0])
+	{
+		errno = ENOENT;
 		return -1;
 	}
 	l = strtoul(buffer, &t, 10);
 	if(t && *t)
 	{
+		errno = ENOENT;
 		return -1;
 	}
 	return (int) l;
