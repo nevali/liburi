@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>uri_absolute_path</title><style type="text/css">
+
+/********************************/
+/* start of styles in block.xsl */
+
+.formalpara-title {
+  font-weight: bold;
+}
+
+div.blockquote-title {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgmain-title {
+  font-weight: bold;
+}
+
+span.msgsub-title {
+  font-weight: bold;
+}
+
+span.msgrel-title {
+  font-weight: bold;
+}
+
+div.msglevel, div.msgorig, div.msgaud {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msglevel-title, span.msgorig-title, span.msgaud-title {
+  font-weight: bold;
+}
+
+div.msgexplan {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgexplan-title {
+  font-weight: bold;
+}
+
+/* end of styles in block.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in autotoc.xsl */
+
+
+/* end of styles in autotoc.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in formal.xsl */
+
+div.figure-title {
+  font-weight: bold;
+}
+
+div.example-title {
+  font-weight: bold;
+}
+
+div.equation-title {
+  font-weight: bold;
+}
+
+div.table-title {
+  font-weight: bold;
+}
+
+div.sidebar-title {
+  font-weight: bold;
+}
+
+
+/* end of styles in formal.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in verbatim.xsl */
+
+div.programlisting {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.screen {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.synopsis {
+  white-space: pre;
+  font-family: monospace;
+}
+
+/* end of styles in verbatim.xsl */
+/********************************/
+
+/* footnote rule */
+hr.footnote-hr {
+  width: 100;
+}
+
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/></head><body><div xml:lang="en" class="refentry" id="uri_absolute_path-3"><div class="titlepage"/>
+  
+  
+  
+  
+  <div class="refnamediv"><h2>Name</h2><p>
+	uri_absolute
+	 — determine whether the path in a URI is relative or absolute
+  </p></div>
+  
+  <div class="refsect1" id="idp22192"><h2>Library</h2>
+	
+	<p>URI parsing library (liburi, -luri)</p>
+  </div>
+
+  <div class="refsynopsisdiv"><h2>Synopsis</h2>
+	<div class="funcsynopsis">
+	  <pre class="funcsynopsisinfo">#include &lt;liburi.h&gt;</pre>
+	  <p>
+		<code class="funcdef">int <strong class="fsfunc">uri_absolute_path</strong>(</code>
+		URI *<var class="pdparam">uri</var><code>)</code>;
+	  </p>
+	</div>
+  </div>
+
+  <div class="refsect1" id="idp10624"><h2>Description</h2>
+	
+	<p>
+	  The <code class="function">uri_absolute_path</code> function determines whether
+	  the path in a parsed URI is absolute or relative. An absolute path is
+	  one begins with a "<code class="literal">/</code>" character.
+	</p>
+	<p>
+	  URIs which do not include a path at all are not considered to be
+	  absolute by this function. Any URI which does include a path and for
+	  which <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_absolute.3.html" target="_top">uri_absolute</a></span>(3)</span> returns
+	  <code class="literal">1</code> will be determined to have an absolute
+	  path. More specifically, any URI which includes either a scheme or a
+	  hostname as well as a path are always considered to have an absolute
+	  path (that is, <code class="literal">file:foo</code> and <code class="literal">file:/foo</code>
+	  will give the same results after parsing).
+	</p>
+  </div>
+
+  <div class="refsect1" id="idp16320"><h2>Parameters</h2>
+	
+	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uri</code></em></span></dt><dd>
+		  <p>
+			The URI to evaluate.
+		  </p>
+		</dd></dl></div>
+  </div>
+
+  <div class="refsect1" id="idp14208"><h2>Return value</h2>
+	
+	<p>
+	  If successful, <code class="function">uri_absolute_path</code> returns
+	  <code class="literal">1</code> if <em class="parameter"><code>uri</code></em> contains a URI
+	  with an absolute path, and <code class="literal">0</code> otherwise.
+	</p>
+	<p>
+	  If an error occurs, <code class="function">uri_absolute</code> returns
+	  <code class="literal">-1</code>, and sets <code class="varname">errno</code>
+	  accordingly.
+	</p>
+  </div>
+
+  <div class="refsect1" id="idp42464"><h2>Example</h2>
+	
+	<pre class="programlisting">
+URI *uri;
+int result;
+
+uri = uri_create_str("http://example.com", NULL);
+/* result will be 0 because no path is present */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("/project", NULL);
+/* result will be 1 because an absolute path was parsed */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("results/output", NULL);
+/* result will be 0 because a relative path was parsed */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("file:output", NULL);
+/* result will be 1 because a scheme was present, meaning the path
+ * is always interpreted as as being absolute (in this case, "/output")
+ */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+	</pre>
+  </div>
+
+  <div class="refsect1" id="idp43744"><h2>See also</h2>
+	
+	<p>
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>,
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_absolute.3.html" target="_top">uri_absolute</a></span>(3)</span>.
+	</p>
+  </div>
+  
+</div></body></html>

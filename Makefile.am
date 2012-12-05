@@ -19,11 +19,17 @@ SUBDIRS = uriparser . t util m4
 doc_DATA = README.md LICENSE-2.0 TODO \
 	liburi.3.html \
 	uri_create_str.3.html uri_create_uri.3.html uri_destroy.3.html \
-	uri_scheme.3.html
+	uri_scheme.3.html uri_auth.3.html uri_host.3.html uri_port.3.html \
+	uri_path.3.html uri_query.3.html uri_fragment.3.html uri_portnum.3.html \
+	uri_absolute.3.html uri_absolute_path.3.html \
+	uri_str.3.html
 
 dist_man3_MANS = liburi.3 \
 	uri_create_str.3 uri_create_uri.3 uri_destroy.3 \
-	uri_scheme.3
+	uri_scheme.3 uri_auth.3 uri_host.3 uri_port.3 \
+	uri_path.3 uri_query.3 uri_fragment.3 uri_portnum.3 \
+	uri_absolute.3 uri_absolute_path.3 \
+	uri_str.3
 
 lib_LTLIBRARIES = liburi.la
 

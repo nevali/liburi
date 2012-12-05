@@ -1,5 +1,5 @@
 '\" t
-.\"     Title: uri_scheme
+.\"     Title: uri_str
 .\"    Author: Mo McRoberts
 .\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
 .\"      Date: 12/05/2012
@@ -7,7 +7,7 @@
 .\"    Source: System Programmer's Manual
 .\"  Language: English
 .\"
-.TH "URI_SCHEME" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
+.TH "URI_STR" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -28,7 +28,7 @@
 .\" * MAIN CONTENT STARTS HERE *
 .\" -----------------------------------------------------------------
 .SH "NAME"
-uri_scheme \- copy a URI\*(Aqs scheme into a buffer
+uri_str \- recompose a URI
 .SH "LIBRARY"
 .PP
 URI parsing library (liburi, \-luri)
@@ -39,23 +39,25 @@ URI parsing library (liburi, \-luri)
 #include <liburi\&.h>
 .fi
 .ft
-.HP \w'size_t\ uri_scheme('u
-.BI "size_t uri_scheme(URI\ *restrict\ " "uri" ", char\ *\ " "buffer" ", size_t\ " "size" ");"
+.HP \w'size_t\ uri_str('u
+.BI "size_t uri_str(URI\ *restrict\ " "uri" ", char\ *\ " "buffer" ", size_t\ " "size" ");"
 .SH "DESCRIPTION"
 .PP
 The
-\fBuri_scheme\fR
-function copies the scheme from a URI into a supplied buffer\&.
+\fBuri_str\fR
+function recomposes a URI from its constiuent parts and copies the result into a supplied buffer\&.
+.PP
+Note that a recomposed URI may be longer than the string the URI was originally parsed from\&.
 .SH "PARAMETERS"
 .PP
 \fIuri\fR
 .RS 4
-The source URI to copy the scheme from\&.
+The source URI to recompose\&.
 .RE
 .PP
 \fIbuffer\fR
 .RS 4
-The buffer to store the URI\*(Aqs scheme in\&.
+The buffer to store the recomposed URI string in\&.
 \fIbuffer\fR
 may be
 \fBNULL\fR
@@ -79,32 +81,20 @@ The size of
 .SH "RETURN VALUE"
 .PP
 If successful,
-\fBuri_scheme\fR
-returns the total number of bytes required to store the URI\*(Aqs scheme, including the
+\fBuri_str\fR
+returns the total number of bytes required to store the recomposed URI, including the
 \fBNULL\fR
 terminator (that is, one greater than the length of the string measured in bytes)\&. This return will occur whether a buffer is supplied or not, and regardless of its size\&.
 .PP
-If the URI has no scheme,
-\fBuri_scheme\fR
-will return
-0, however it will still copy an empty string to
-\fIbuffer\fR
-provided
-\fIbuffer\fR
-is non\-\fBNULL\fR
-and
-\fIsize\fR
-is non\-zero\&.
-.PP
 If an error occurs,
-\fBuri_scheme\fR
+\fBuri_str\fR
 returns
 (size_t) \-1, and sets
 \fIerrno\fR
 accordingly\&.
 .PP
 An application can invoke
-\fBuri_scheme\fR, passing
+\fBuri_str\fR, passing
 \fBNULL\fR
 as
 \fIbuffer\fR
@@ -126,17 +116,17 @@ in order to to determine whether the copied string was truncated: if the return 
 .RS 4
 .\}
 .nf
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 64
 	  
 URI *uri;
 char buffer[BUFFER_SIZE];
 size_t r;
 
-uri = uri_create_str("http://example\&.com/", NULL);
-r = uri_scheme(uri, buffer, BUFFER_SIZE);
+uri = uri_create_str("HTTP://example\&.com/foo/\&.\&./ bar", NULL);
+r = uri_str(uri, buffer, BUFFER_SIZE);
 
-/* assuming no errors have occurred, buffer will contain \*(Aqhttp\*(Aq and
- * r will be 5\&.
+/* assuming no errors have occurred, buffer will contain
+ * \*(Aqhttp://example\&.com/%20bar\*(Aq and r will be 26\&.
  */
 printf("buffer=\*(Aq%s\*(Aq, r=%lu\en", buffer, (unsigned long) r);
 	
@@ -147,4 +137,6 @@ printf("buffer=\*(Aq%s\*(Aq, r=%lu\en", buffer, (unsigned long) r);
 .SH "SEE ALSO"
 .PP
 
-\fBliburi\fR(3)\&.
+\fBliburi\fR(3),
+\fBuri_create_str\fR(3),
+\fBuri_create_uri\fR(3)\&.

@@ -1,5 +1,5 @@
 '\" t
-.\"     Title: liburi
+.\"     Title: uri_portnum
 .\"    Author: Mo McRoberts
 .\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
 .\"      Date: 12/05/2012
@@ -7,7 +7,7 @@
 .\"    Source: System Programmer's Manual
 .\"  Language: English
 .\"
-.TH "LIBURI" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
+.TH "URI_PORTNUM" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -28,7 +28,7 @@
 .\" * MAIN CONTENT STARTS HERE *
 .\" -----------------------------------------------------------------
 .SH "NAME"
-liburi \- parse URIs and IRIs
+uri_portnum \- obtain a URI\*(Aqs port number
 .SH "LIBRARY"
 .PP
 URI parsing library (liburi, \-luri)
@@ -39,74 +39,66 @@ URI parsing library (liburi, \-luri)
 #include <liburi\&.h>
 .fi
 .ft
+.HP \w'int\ uri_portnum('u
+.BI "int uri_portnum(URI\ *" "uri" ");"
 .SH "DESCRIPTION"
 .PP
 The
-liburi
-library provides facilities for parsing and recomposing Universal Resource Identifiers (URIs) and Internationalized Resource Identifiers (IRIs)\&.
-.SH "TASKS"
+\fBuri_portnum\fR
+returns the port number from a URI\&.
+.SH "PARAMETERS"
 .PP
-Create a URI instance:
+\fIuri\fR
 .RS 4
-
-\fBuri_create_str\fR(3),
-\fBuri_create_uri\fR(3)\&.
+The source URI to retrieve the port number from\&.
 .RE
+.SH "RETURN VALUE"
 .PP
-Free resources used by a URI instance:
-.RS 4
-
-\fBuri_destroy\fR(3)\&.
-.RE
+If the URI has a port number, its value will be returned\&. The port number can be any integer which is greater than or equal to zero\&.
 .PP
-Obtain the parsed URI as a string:
-.RS 4
-
-\fBuri_str\fR(3)\&.
-.RE
+If an error occurs,
+\fBuri_portnum\fR
+returns
+\-1, and sets
+\fIerrno\fR
+accordingly\&. If the URI does not have a port number,
+\fBuri_portnum\fR
+returns
+\-1
+and sets
+\fIerrno\fR
+to
+\fBENOENT\fR\&.
+.SH "DIAGNOSTICS"
 .PP
-Obtain parsed components of the URI:
-.RS 4
-
-\fBuri_scheme\fR(3),
-\fBuri_auth\fR(3),
-\fBuri_host\fR(3),
-\fBuri_port\fR(3),
-\fBuri_portnum\fR(3),
-\fBuri_path\fR(3),
-\fBuri_query\fR(3),
-\fBuri_fragment\fR(3)\&.
-.RE
+In the event of an error ocurring,
+\fIerrno\fR
+may be set to:
 .PP
-Obtain information about a parsed URI:
+\fBENOENT\fR
 .RS 4
-
-\fBuri_absolute\fR(3),
-\fBuri_absolute_path\fR(3)\&.
+The URI does not include a port number\&.
 .RE
+.SH "EXAMPLE"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+URI *uri;
+int r;
+
+uri = uri_create_str("http://example\&.com:21/", NULL);
+r = uri_portnum(uri);
+
+/* assuming no errors have occurred, r will be 21 */
+printf("r=%d\en", r);
+	
+.fi
+.if n \{\
+.RE
+.\}
 .SH "SEE ALSO"
 .PP
 
-\fBuriparse\fR(1),
-\fBuri_create_str\fR(3),
-\fBuri_create_uri\fR(3),
-\fBuri_destroy\fR(3),
-\fBuri_scheme\fR(3),
-\fBuri_auth\fR(3),
-\fBuri_host\fR(3),
-\fBuri_port\fR(3),
-\fBuri_portnum\fR(3),
-\fBuri_path\fR(3),
-\fBuri_query\fR(3),
-\fBuri_fragment\fR(3),
-\fBuri_str\fR(3),
-\fBuri_absolute\fR(3)\&.
-.SH "HISTORY"
-.PP
-The
-liburi
-library implements an alternative API to that provided by the
-\m[blue]\fBuriparser\fR\m[]
-library, which
-liburi
-uses internally\&.
+\fBliburi\fR(3)\&.

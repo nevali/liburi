@@ -58,6 +58,19 @@
 	<para>
 	  The resulting instance must be freed later using <citerefentry><refentrytitle><ulink url="uri_destroy.3.html">uri_destroy</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
+	<para>
+	  URIs are normalised as they are parsed. Normalisation is performed
+	  according to <ulink url="http://tools.ietf.org/html/rfc3986#section-6.2.2">section 6.2.2 of RFC3986</ulink>, and includes adjusting the case of any
+	  scheme, hostname and percent-encoded characters so as to be consistent,
+	  as well as removing redundant components from the path (for example, a
+	  path of <literal>/a/b/c/../d/../../e</literal> will be normalised to
+	  <literal>/a/e</literal>).
+	</para>
+	<para>
+	  Once parsed, a URI can be resolved against a base URI if it is relative
+	  using <citerefentry><refentrytitle><ulink url="uri_create_uri.3.html">uri_create_uri</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  and can be recomposed into a string representation using <citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>	
   </refsect1>
 
   <refsect1>

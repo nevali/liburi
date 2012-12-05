@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>uri_scheme</title><style type="text/css">
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>uri_fragment</title><style type="text/css">
 
 /********************************/
 /* start of styles in block.xsl */
@@ -107,14 +107,14 @@ hr.footnote-hr {
   width: 100;
 }
 
-</style><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/></head><body><div xml:lang="en" class="refentry" id="uri_scheme-3"><div class="titlepage"/>
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/></head><body><div xml:lang="en" class="refentry" id="uri_fragment-3"><div class="titlepage"/>
   
   
   
   
   <div class="refnamediv"><h2>Name</h2><p>
-	uri_scheme
-	 — copy a URI's scheme into a buffer
+	uri_fragment
+	 — copy a URI's fragment into a buffer
   </p></div>
   
   <div class="refsect1" id="idp768"><h2>Library</h2>
@@ -126,7 +126,7 @@ hr.footnote-hr {
 	<div class="funcsynopsis">
 	  <pre class="funcsynopsisinfo">#include &lt;liburi.h&gt;</pre>
 	  <p>
-		<code class="funcdef">size_t <strong class="fsfunc">uri_scheme</strong>(</code>
+		<code class="funcdef">size_t <strong class="fsfunc">uri_fragment</strong>(</code>
 		URI *restrict <var class="pdparam">uri</var>, 
 		char * <var class="pdparam">buffer</var>, 
 		size_t <var class="pdparam">size</var><code>)</code>;
@@ -137,7 +137,7 @@ hr.footnote-hr {
   <div class="refsect1" id="idp6816"><h2>Description</h2>
 	
 	<p>
-	  The <code class="function">uri_scheme</code> function copies the scheme from a URI
+	  The <code class="function">uri_fragment</code> function copies the fragment from a URI
 	  into a supplied buffer.
 	</p>
   </div>
@@ -146,11 +146,11 @@ hr.footnote-hr {
 	
 	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uri</code></em></span></dt><dd>
 		  <p>
-			The source URI to copy the scheme from.
+			The source URI to copy the fragment from.
 		  </p>
 		</dd><dt><span class="term"><em class="parameter"><code>buffer</code></em></span></dt><dd>
 		  <p>
-			The buffer to store the URI's scheme in. <em class="parameter"><code>buffer</code></em>
+			The buffer to store the URI's fragment in. <em class="parameter"><code>buffer</code></em>
 			may be <code class="constant">NULL</code> to simply obtain the return
 			value.
 		  </p>
@@ -171,26 +171,26 @@ hr.footnote-hr {
   <div class="refsect1" id="idp42592"><h2>Return value</h2>
 	
 	<p>
-	  If successful, <code class="function">uri_scheme</code> returns the total number
-	  of bytes required to store the URI's scheme, including the
+	  If successful, <code class="function">uri_fragment</code> returns the total number
+	  of bytes required to store the URI's fragment, including the
 	  <code class="constant">NULL</code> terminator (that is, one greater than
 	  the length of the string measured in bytes). This return will
 	  occur whether a buffer is supplied or not, and regardless of its size.
 	</p>
 	<p>
-	  If the URI has no scheme, <code class="function">uri_scheme</code> will return
+	  If the URI has no fragment, <code class="function">uri_fragment</code> will return
 	  <code class="literal">0</code>, however it will still copy an empty string to
 	  <em class="parameter"><code>buffer</code></em> provided <em class="parameter"><code>buffer</code></em>
 	  is non-<code class="constant">NULL</code> and <em class="parameter"><code>size</code></em>
 	  is non-zero.
 	</p>
 	<p>
-	  If an error occurs, <code class="function">uri_scheme</code> returns
+	  If an error occurs, <code class="function">uri_fragment</code> returns
 	  <code class="literal">(size_t) -1</code>, and sets <code class="varname">errno</code>
 	  accordingly.
 	</p>
 	<p>
-	  An application can invoke <code class="function">uri_scheme</code>, passing
+	  An application can invoke <code class="function">uri_fragment</code>, passing
 	  <code class="constant">NULL</code> as <em class="parameter"><code>buffer</code></em> and
 	  <code class="literal">0</code> as <em class="parameter"><code>size</code></em> in order to
 	  obtain the size of buffer required for a subsequent call.
@@ -214,11 +214,11 @@ URI *uri;
 char buffer[BUFFER_SIZE];
 size_t r;
 
-uri = uri_create_str("http://example.com/", NULL);
-r = uri_scheme(uri, buffer, BUFFER_SIZE);
+uri = uri_create_str("http://example.com/#top", NULL);
+r = uri_fragment(uri, buffer, BUFFER_SIZE);
 
-/* assuming no errors have occurred, buffer will contain 'http' and
- * r will be 5.
+/* assuming no errors have occurred, buffer will contain 'top' and
+ * r will be 4.
  */
 printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
 	</pre>

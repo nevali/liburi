@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry version="5.0" xml:id="uri_scheme-3" xmlns="http://docbook.org/ns" xml:lang="en">
+<refentry version="5.0" xml:id="uri_path-3" xmlns="http://docbook.org/ns" xml:lang="en">
   <info>
 	<title>URI Functions</title>
 	<productname>System Programmer's Manual</productname>
@@ -18,13 +18,13 @@
   </info>
   
   <refmeta>
-	<refentrytitle>uri_scheme</refentrytitle>
+	<refentrytitle>uri_path</refentrytitle>
 	<manvolnum>3</manvolnum>
   </refmeta>
   
   <refnamediv>
-	<refname>uri_scheme</refname>
-	<refpurpose>copy a URI's scheme into a buffer</refpurpose>
+	<refname>uri_path</refname>
+	<refpurpose>copy a URI's path into a buffer</refpurpose>
   </refnamediv>
   
   <refsect1>
@@ -36,7 +36,7 @@
 	<funcsynopsis>
 	  <funcsynopsisinfo>#include &lt;liburi.h&gt;</funcsynopsisinfo>
 	  <funcprototype>
-		<funcdef>size_t <function>uri_scheme</function></funcdef>
+		<funcdef>size_t <function>uri_path</function></funcdef>
 		<paramdef>URI *restrict <parameter>uri</parameter></paramdef>
 		<paramdef>char * <parameter>buffer</parameter></paramdef>
 		<paramdef>size_t <parameter>size</parameter></paramdef>
@@ -47,7 +47,7 @@
   <refsect1>
 	<title>Description</title>
 	<para>
-	  The <function>uri_scheme</function> function copies the scheme from a URI
+	  The <function>uri_path</function> function copies the path from a URI
 	  into a supplied buffer.
 	</para>
   </refsect1>
@@ -60,7 +60,7 @@
 		<term><parameter>uri</parameter></term>
 		<listitem>
 		  <para>
-			The source URI to copy the scheme from.
+			The source URI to copy the path from.
 		  </para>
 		</listitem>
 	  </varlistentry>
@@ -69,7 +69,7 @@
 		<term><parameter>buffer</parameter></term>
 		<listitem>
 		  <para>
-			The buffer to store the URI's scheme in. <parameter>buffer</parameter>
+			The buffer to store the URI's path in. <parameter>buffer</parameter>
 			may be <constant>NULL</constant> to simply obtain the return
 			value.
 		  </para>
@@ -98,26 +98,26 @@
   <refsect1>
 	<title>Return value</title>
 	<para>
-	  If successful, <function>uri_scheme</function> returns the total number
-	  of bytes required to store the URI's scheme, including the
+	  If successful, <function>uri_path</function> returns the total number
+	  of bytes required to store the URI's path, including the
 	  <constant>NULL</constant> terminator (that is, one greater than
 	  the length of the string measured in bytes). This return will
 	  occur whether a buffer is supplied or not, and regardless of its size.
 	</para>
 	<para>
-	  If the URI has no scheme, <function>uri_scheme</function> will return
+	  If the URI has no path, <function>uri_path</function> will return
 	  <literal>0</literal>, however it will still copy an empty string to
 	  <parameter>buffer</parameter> provided <parameter>buffer</parameter>
 	  is non-<constant>NULL</constant> and <parameter>size</parameter>
 	  is non-zero.
 	</para>
 	<para>
-	  If an error occurs, <function>uri_scheme</function> returns
+	  If an error occurs, <function>uri_path</function> returns
 	  <literal>(size_t) -1</literal>, and sets <varname>errno</varname>
 	  accordingly.
 	</para>
 	<para>
-	  An application can invoke <function>uri_scheme</function>, passing
+	  An application can invoke <function>uri_path</function>, passing
 	  <constant>NULL</constant> as <parameter>buffer</parameter> and
 	  <literal>0</literal> as <parameter>size</parameter> in order to
 	  obtain the size of buffer required for a subsequent call.
@@ -141,11 +141,11 @@ URI *uri;
 char buffer[BUFFER_SIZE];
 size_t r;
 
-uri = uri_create_str("http://example.com/", NULL);
-r = uri_scheme(uri, buffer, BUFFER_SIZE);
+uri = uri_create_str("http://example.com/widget", NULL);
+r = uri_path(uri, buffer, BUFFER_SIZE);
 
-/* assuming no errors have occurred, buffer will contain 'http' and
- * r will be 5.
+/* assuming no errors have occurred, buffer will contain '/widget' and
+ * r will be 8.
  */
 printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
 	</programlisting>

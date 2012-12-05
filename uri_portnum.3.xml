@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0" xml:id="uri_portnum-3" xmlns="http://docbook.org/ns" xml:lang="en">
+  <info>
+	<title>URI Functions</title>
+	<productname>System Programmer's Manual</productname>
+	<authorgroup>
+	  <author>
+		<personname>
+		  <firstname>Mo</firstname>
+		  <surname>McRoberts</surname>
+		</personname>
+	  </author>
+	</authorgroup>
+	<copyright>
+	  <year>2012</year>
+	  <holder>Mo McRoberts</holder>
+	</copyright>
+  </info>
+  
+  <refmeta>
+	<refentrytitle>uri_portnum</refentrytitle>
+	<manvolnum>3</manvolnum>
+  </refmeta>
+  
+  <refnamediv>
+	<refname>uri_portnum</refname>
+	<refpurpose>obtain a URI's port number</refpurpose>
+  </refnamediv>
+  
+  <refsect1>
+	<title>Library</title>
+	<para>URI parsing library (liburi, -luri)</para>
+  </refsect1>
+
+  <refsynopsisdiv>
+	<funcsynopsis>
+	  <funcsynopsisinfo>#include &lt;liburi.h&gt;</funcsynopsisinfo>
+	  <funcprototype>
+		<funcdef>int <function>uri_portnum</function></funcdef>
+		<paramdef>URI *<parameter>uri</parameter></paramdef>
+	  </funcprototype>
+	</funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+	<title>Description</title>
+	<para>
+	  The <function>uri_portnum</function> returns the port number from a URI.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Parameters</title>
+	<variablelist>
+
+	  <varlistentry>
+		<term><parameter>uri</parameter></term>
+		<listitem>
+		  <para>
+			The source URI to retrieve the port number from.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
+	</variablelist>
+  </refsect1>
+
+  <refsect1>
+	<title>Return value</title>
+	<para>
+	  If the URI has a port number, its value will be returned. The port
+	  number can be any integer which is greater than or equal to zero.
+	</para>
+	<para>
+	  If an error occurs, <function>uri_portnum</function> returns
+	  <literal>-1</literal>, and sets <varname>errno</varname>
+	  accordingly. If the URI does not have a port number,
+	  <function>uri_portnum</function> returns <literal>-1</literal>
+	  and sets <varname>errno</varname> to <constant>ENOENT</constant>.
+	</para>
+  </refsect1>
+
+  <refsect1>
+	<title>Diagnostics</title>
+	<para>
+	  In the event of an error ocurring, <varname>errno</varname> may be
+	  set to:
+	</para>
+	<variablelist>
+
+	  <varlistentry>
+		<term><constant>ENOENT</constant></term>
+		<listitem>
+		  <para>
+			The URI does not include a port number.
+		  </para>
+		</listitem>
+	  </varlistentry>
+	  
+	</variablelist>
+  </refsect1>
+
+  <refsect1>
+	<title>Example</title>
+	<programlisting language="c">
+URI *uri;
+int r;
+
+uri = uri_create_str("http://example.com:21/", NULL);
+r = uri_portnum(uri);
+
+/* assuming no errors have occurred, r will be 21 */
+printf("r=%d\n", r);
+	</programlisting>
+  </refsect1>
+
+  <refsect1>
+	<title>See also</title>
+	<para>
+	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>
+  </refsect1>
+  
+</refentry>

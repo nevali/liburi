@@ -2,12 +2,12 @@
 .\"     Title: uri_create_str
 .\"    Author: Mo McRoberts
 .\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
-.\"      Date: 12/04/2012
+.\"      Date: 12/05/2012
 .\"    Manual: URI Functions
 .\"    Source: System Programmer's Manual
 .\"  Language: English
 .\"
-.TH "URI_CREATE_STR" "3" "12/04/2012" "System Programmer's Manual" "URI Functions"
+.TH "URI_CREATE_STR" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -55,6 +55,16 @@ is not absolute, and an absolute base URI is supplied as
 .PP
 The resulting instance must be freed later using
 \fBuri_destroy\fR(3)\&.
+.PP
+URIs are normalised as they are parsed\&. Normalisation is performed according to
+\m[blue]\fBsection 6\&.2\&.2 of RFC3986\fR\m[], and includes adjusting the case of any scheme, hostname and percent\-encoded characters so as to be consistent, as well as removing redundant components from the path (for example, a path of
+/a/b/c/\&.\&./d/\&.\&./\&.\&./e
+will be normalised to
+/a/e)\&.
+.PP
+Once parsed, a URI can be resolved against a base URI if it is relative using
+\fBuri_create_uri\fR(3), and can be recomposed into a string representation using
+\fBuri_str\fR(3)\&.
 .SH "PARAMETERS"
 .PP
 \fIuristr\fR

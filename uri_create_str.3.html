@@ -148,9 +148,22 @@ hr.footnote-hr {
 	<p>
 	  The resulting instance must be freed later using <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_destroy.3.html" target="_top">uri_destroy</a></span>(3)</span>.
 	</p>
+	<p>
+	  URIs are normalised as they are parsed. Normalisation is performed
+	  according to <a class="ulink" href="http://tools.ietf.org/html/rfc3986#section-6.2.2" target="_top">section 6.2.2 of RFC3986</a>, and includes adjusting the case of any
+	  scheme, hostname and percent-encoded characters so as to be consistent,
+	  as well as removing redundant components from the path (for example, a
+	  path of <code class="literal">/a/b/c/../d/../../e</code> will be normalised to
+	  <code class="literal">/a/e</code>).
+	</p>
+	<p>
+	  Once parsed, a URI can be resolved against a base URI if it is relative
+	  using <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_create_uri.3.html" target="_top">uri_create_uri</a></span>(3)</span>,
+	  and can be recomposed into a string representation using <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_str.3.html" target="_top">uri_str</a></span>(3)</span>.
+	</p>	
   </div>
 
-  <div class="refsect1" id="idp25488"><h2>Parameters</h2>
+  <div class="refsect1" id="idp27264"><h2>Parameters</h2>
 	
 	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uristr</code></em></span></dt><dd>
 		  <p>
@@ -163,7 +176,7 @@ hr.footnote-hr {
 		</dd></dl></div>
   </div>
 
-  <div class="refsect1" id="idp23408"><h2>Return value</h2>
+  <div class="refsect1" id="idp45120"><h2>Return value</h2>
 	
 	<p>
 	  If the URI was parsed successfully, <code class="function">uri_create_str</code>
@@ -173,7 +186,7 @@ hr.footnote-hr {
 	</p>
   </div>
 
-  <div class="refsect1" id="idp43632"><h2>Diagnostics</h2>
+  <div class="refsect1" id="idp47808"><h2>Diagnostics</h2>
 	
 	<p>
 	  In the event of an error ocurring, <code class="varname">errno</code> may be
@@ -191,7 +204,7 @@ hr.footnote-hr {
 
   </div>
 
-  <div class="refsect1" id="idp48880"><h2>Examples</h2>
+  <div class="refsect1" id="idp53056"><h2>Examples</h2>
 	
 	<p>Parsing an absolute URI:</p>
 	<pre class="programlisting">
@@ -218,7 +231,7 @@ uri = uri_create_str("switch?toggle=1", base);
 	
   </div>
 
-  <div class="refsect1" id="idp51776"><h2>See also</h2>
+  <div class="refsect1" id="idp55888"><h2>See also</h2>
 	
 	<p>
 	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>,

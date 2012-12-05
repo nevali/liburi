@@ -1,0 +1,122 @@
+'\" t
+.\"     Title: uri_absolute_path
+.\"    Author: Mo McRoberts
+.\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
+.\"      Date: 12/05/2012
+.\"    Manual: URI Functions
+.\"    Source: System Programmer's Manual
+.\"  Language: English
+.\"
+.TH "URI_ABSOLUTE_PATH" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+uri_absolute \- determine whether the path in a URI is relative or absolute
+.SH "LIBRARY"
+.PP
+URI parsing library (liburi, \-luri)
+.SH "SYNOPSIS"
+.sp
+.ft B
+.nf
+#include <liburi\&.h>
+.fi
+.ft
+.HP \w'int\ uri_absolute_path('u
+.BI "int uri_absolute_path(URI\ *" "uri" ");"
+.SH "DESCRIPTION"
+.PP
+The
+\fBuri_absolute_path\fR
+function determines whether the path in a parsed URI is absolute or relative\&. An absolute path is one begins with a "/" character\&.
+.PP
+URIs which do not include a path at all are not considered to be absolute by this function\&. Any URI which does include a path and for which
+\fBuri_absolute\fR(3)
+returns
+1
+will be determined to have an absolute path\&. More specifically, any URI which includes either a scheme or a hostname as well as a path are always considered to have an absolute path (that is,
+file:foo
+and
+file:/foo
+will give the same results after parsing)\&.
+.SH "PARAMETERS"
+.PP
+\fIuri\fR
+.RS 4
+The URI to evaluate\&.
+.RE
+.SH "RETURN VALUE"
+.PP
+If successful,
+\fBuri_absolute_path\fR
+returns
+1
+if
+\fIuri\fR
+contains a URI with an absolute path, and
+0
+otherwise\&.
+.PP
+If an error occurs,
+\fBuri_absolute\fR
+returns
+\-1, and sets
+\fIerrno\fR
+accordingly\&.
+.SH "EXAMPLE"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+URI *uri;
+int result;
+
+uri = uri_create_str("http://example\&.com", NULL);
+/* result will be 0 because no path is present */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("/project", NULL);
+/* result will be 1 because an absolute path was parsed */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("results/output", NULL);
+/* result will be 0 because a relative path was parsed */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+
+uri = uri_create_str("file:output", NULL);
+/* result will be 1 because a scheme was present, meaning the path
+ * is always interpreted as as being absolute (in this case, "/output")
+ */
+result = uri_absolute_path(uri);
+uri_destroy(uri);
+	
+.fi
+.if n \{\
+.RE
+.\}
+.SH "SEE ALSO"
+.PP
+
+\fBliburi\fR(3),
+\fBuri_absolute\fR(3)\&.

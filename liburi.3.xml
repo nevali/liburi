@@ -96,6 +96,16 @@
 		</listitem>
 	  </varlistentry>
 
+	  <varlistentry>
+		<term>Obtain information about a parsed URI:</term>
+		<listitem>
+		  <para>
+			<citerefentry><refentrytitle><ulink url="uri_absolute.3.html">uri_absolute</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle><ulink url="uri_absolute_path.3.html">uri_absolute_path</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+		  </para>
+		</listitem>
+	  </varlistentry>
+
 	</variablelist>
   </refsect1>
 
@@ -114,7 +124,8 @@
 	  <citerefentry><refentrytitle><ulink url="uri_path.3.html">uri_path</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
 	  <citerefentry><refentrytitle><ulink url="uri_query.3.html">uri_query</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
 	  <citerefentry><refentrytitle><ulink url="uri_fragment.3.html">uri_fragment</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-	  <citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	  <citerefentry><refentrytitle><ulink url="uri_str.3.html">uri_str</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_absolute.3.html">uri_absolute</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
   </refsect1>
 
