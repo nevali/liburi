@@ -1,6 +1,7 @@
 * Ensure error states are ferried back from uriparser to errno properly
 
-* Clean up uriparser (escaping, remove fixed-size buffer, add emit-empty option)
+* Clean up util/uriparse (escaping, remove fixed-size buffer, add
+  emit-empty option)
 
 * Document remaining methods
 
