@@ -1,0 +1,9 @@
+* Ensure error states are ferried back from uriparser to errno properly
+
+* Clean up uriparser (escaping, remove fixed-size buffer, add emit-empty option)
+
+* Document remaining methods
+
+* Better handle schemes which don't fit the strict pattern (URNs, tag:, dvb:, data:, etc.)
+
+* Bindings
