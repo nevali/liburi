@@ -29,51 +29,26 @@
 
 static const char *short_program_name = "uriparse";
 static const char *prefix = "";
+static const char *uristr;
+static const char *basestr;
 static int verbose;
 static int printuri;
+static int omitempty;
+
+static void parseargs(int argc, char **argv);
+static void usage(void);
+static URI *parseuris(void);
+static int printcomp(URI *uri, const char *name, size_t (*fn)(URI *restrict, char *restrict, size_t), char **buffer, size_t *len);
+static int printesc(const char *string);
+static int print_uri(URI *uri);
+static int print_components(URI *uri);
 
 static void
-usage(void)
-{
-	fprintf(stderr, "Parse a URI and print its components\n\n");
-	fprintf(stderr, "Usage: %s [OPTIONS] URI [BASE]\n\n", short_program_name);
-	fprintf(stderr, "OPTIONS is one or more of:\n"
-			"  -h                  Display this usage message and exit\n"
-			"  -v                  Produce verbose output\n"
-			"  -p PREFIX           Prefix output variable names with PREFIX\n"
-			"  -u                  Print the parsed URI instead of components\n");
-}
-
-static int
-printcomp(const char *name, char *buffer, ssize_t len)
-{
-	if(len < 0)
-	{
-		fprintf(stderr, "%s: failed to obtain %s\n", short_program_name, name);
-		return -1;
-	}
-	if(len == 0)
-	{
-		if(verbose)
-		{
-			fprintf(stderr, "%s: URI has no %s\n", short_program_name, name);
-		}
-		return 0;
-	}	
-	printf("%s%s='%s'\n", prefix, name, buffer);
-	return 0;
-}
-
-int
-main(int argc, char **argv)
+parseargs(int argc, char **argv)
 {
 	const char *t;
-	URI *uri, *base;
-	char buffer[256], *bp;
-	size_t buflen, len;
-	int port, ch;
+	int ch;
 
-	setlocale(LC_ALL, "");
 	t = strrchr(argv[0], '/');
 	if(t)
 	{
@@ -84,7 +59,7 @@ main(int argc, char **argv)
 		t = argv[0];
 	}
 	short_program_name = t;
-	while((ch = getopt(argc, argv, "hvp:u")) != -1)
+	while((ch = getopt(argc, argv, "hvp:uo")) != -1)
 	{
 		switch(ch)
 		{
@@ -100,6 +75,9 @@ main(int argc, char **argv)
 		case 'u':
 			printuri = 1;
 			break;
+		case 'o':
+			omitempty = 1;
+			break;
 		default:
 			usage();
 			exit(EXIT_FAILURE);
@@ -112,74 +90,231 @@ main(int argc, char **argv)
 	}
 	argc -= optind;
 	argv += optind;
-	buflen = strlen(argv[0]);
+	uristr = argv[0];	
 	if(argc >= 2)
 	{
-		base = uri_create_str(argv[1], NULL);
-		buflen += strlen(argv[1]);
+		basestr = argv[1];
 	}
 	else
 	{
-		base = NULL;
+		basestr = NULL;
 	}
-	buflen = (buflen * 3) + 1;	
-	uri = uri_create_str(argv[0], base);
+}
+
+static void
+usage(void)
+{
+	fprintf(stderr, "Parse a URI and print its components\n\n");
+	fprintf(stderr, "Usage: %s [OPTIONS] URI [BASE]\n\n", short_program_name);
+	fprintf(stderr, "OPTIONS is one or more of:\n"
+			"  -h                  Display this usage message and exit\n"
+			"  -v                  Produce verbose output\n"
+			"  -p PREFIX           Prefix output variable names with PREFIX\n"
+			"  -u                  Print the parsed URI instead of components\n"
+		    "  -o                  Omit printing components which are absent\n");
+}
+
+static URI *
+parseuris(void)
+{
+	URI *uri, *rel, *base;
+
+	if(basestr)
+	{
+		base = uri_create_str(basestr, NULL);		
+		if(!base)
+		{
+			fprintf(stderr, "%s: failed to parse URI '%s': %s\n", short_program_name, basestr, strerror(errno));
+			return NULL;
+		}
+		rel = uri_create_str(uristr, NULL);
+		if(!rel)
+		{
+			fprintf(stderr, "%s: failed to parse URI '%s': %s\n", short_program_name, uristr, strerror(errno));
+			return NULL;
+		}
+		uri = uri_create_uri(rel, base);
+		if(!uri)
+		{
+			fprintf(stderr, "%s: failed to resolve '%s' against '%s': %s\n", short_program_name, uristr, basestr, strerror(errno));
+		}
+		uri_destroy(base);
+		uri_destroy(rel);
+		return uri;
+	}
+	uri = uri_create_str(uristr, NULL);
 	if(!uri)
 	{
-		fprintf(stderr, "%s: failed to parse URI '%s'\n", short_program_name, argv[0]);
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "%s: failed to parse URI '%s': %s\n", short_program_name, uristr, strerror(errno));
+		return NULL;
+	}
+	return uri;
+}
+
+static int
+printcomp(URI *uri, const char *name, size_t (*fn)(URI *restrict, char *restrict, size_t), char **buffer, size_t *len)
+{
+	size_t r;
+	char *p;
+
+	r = fn(uri, *buffer, *len);
+	if(r == (size_t) -1)
+	{
+		fprintf(stderr, "%s: failed to obtain %s: %s\n", short_program_name, name, strerror(errno));
+		return -1;
+	}
+	if(r > *len)
+	{
+		p = (char *) realloc(*buffer, r);
+		if(!p)
+		{
+			fprintf(stderr, "%s: failed to reallocate buffer from %lu to %lu bytes: %s\n", short_program_name, (unsigned long) *len, (unsigned long) r, strerror(errno));
+			return -1;
+		}
+		*buffer = p;
+		*len = r;
+		r = fn(uri, *buffer, *len);
+		if(r == (size_t) -1)
+		{
+			fprintf(stderr, "%s: failed to obtain %s: %s\n", short_program_name, name, strerror(errno));
+			return -1;
+		}
+	}
+	if(r == 0)
+	{
+		if(!omitempty)
+		{
+			printf("%s%s=''\n", prefix, name);
+		}
+		return 0;
+	}	
+	printf("%s%s=\"", prefix, name);
+	printesc(*buffer);
+	puts("\"");
+	return 0;
+}
+
+static int
+printesc(const char *string)
+{
+	const char *p;
+
+	for(p = string; *p; p++)
+	{
+		switch(*p)
+		{
+		case '$':
+		case '"':
+		case '\\':
+		case '`':
+			putchar('\\');
+			putchar(*p);
+			break;
+		default:
+			if((unsigned char) *p < 32 || (unsigned char) *p > 127)
+			{
+				printf("\\%03o", *p);
+				continue;
+			}
+			putchar(*p);
+		}
+	}
+	return 0;
+}
+
+static int
+print_uri(URI *uri)
+{
+	size_t len;
+	char *buffer;
+
+	len = uri_str(uri, NULL, 0);
+	if(len == (size_t) -1)
+	{
+		fprintf(stderr, "%s: failed to recompose URI: %s\n", short_program_name, strerror(errno));
+		return -1;
+	}
+	buffer = (char *) malloc(len);
+	if(!buffer)
+	{
+		fprintf(stderr, "%s: failed to allocate %lu bytes: %s\n", short_program_name, (unsigned long) len, strerror(errno));
+		return -1;
+	}	
+	len = uri_str(uri, buffer, len);
+	if(len == (size_t) -1)
+	{
+		fprintf(stderr, "%s: failed to recompose URI: %s\n", short_program_name, strerror(errno));
+		return -1;
+	}
+	puts(buffer);
+	free(buffer);
+	return 0;
+}
+
+static int
+print_components(URI *uri)
+{
+	size_t len;
+	char *buffer;
+	int r;
+
+	r = 0;
+	len = 0;
+	buffer = NULL;
+	if(printcomp(uri, "scheme", uri_scheme, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "auth", uri_auth, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "host", uri_host, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "port", uri_port, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "path", uri_path, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "query", uri_query, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	if(printcomp(uri, "fragment", uri_fragment, &buffer, &len) == -1)
+	{
+		r = -1;
+	}
+	free(buffer);
+
+	return 0;
+}
+
+int
+main(int argc, char **argv)
+{
+	URI *uri;
+	int r;
+
+	setlocale(LC_ALL, "");
+	parseargs(argc, argv);
+	uri = parseuris();
+	if(!uri)
+	{
+		return 1;
 	}
 	if(printuri)
 	{
-		bp = (char *) calloc(1, buflen);
-		if(!bp)
-		{
-			perror(short_program_name);
-			exit(EXIT_FAILURE);
-		}
-		len = uri_str(uri, bp, buflen);
-		if(len == (size_t) -1)
-		{
-			fprintf(stderr, "%s: failed to recompose URI: %s\n", short_program_name, strerror(errno));
-			exit(EXIT_FAILURE);
-		}
-		if(len > buflen)
-		{
-			fprintf(stderr, "%s: URI too long to recompose\n", short_program_name);
-			exit(EXIT_FAILURE);
-		}
-		puts(bp);
-		free(bp);
-		return 0;
-	}	
-	len = uri_scheme(uri, buffer, sizeof(buffer));
-	printcomp("scheme", buffer, len);
-
-	len = uri_auth(uri, buffer, sizeof(buffer));
-	printcomp("auth", buffer, len);
-
-	len = uri_host(uri, buffer, sizeof(buffer));
-	printcomp("host", buffer, len);
-
-	port = uri_portnum(uri);
-	if(port < 0)
-	{
-		printcomp("port", NULL, 0);
+		r = print_uri(uri);	
 	}
 	else
 	{
-		sprintf(buffer, "%d", port);
-		printcomp("port", buffer, strlen(buffer));
+		r = print_components(uri);
 	}
-
-	len = uri_path(uri, buffer, sizeof(buffer));
-	printcomp("path", buffer, len);
-
-	len = uri_query(uri, buffer, sizeof(buffer));
-	printcomp("query", buffer, len);
-
-	len = uri_fragment(uri, buffer, sizeof(buffer));
-	printcomp("fragment", buffer, len);
 	uri_destroy(uri);
-	return 0;
+	return (r ? 1 : 0);
 }
