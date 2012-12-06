@@ -2,12 +2,12 @@
 .\"     Title: uri_portnum
 .\"    Author: Mo McRoberts
 .\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
-.\"      Date: 12/05/2012
+.\"      Date: 12/06/2012
 .\"    Manual: URI Functions
 .\"    Source: System Programmer's Manual
 .\"  Language: English
 .\"
-.TH "URI_PORTNUM" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
+.TH "URI_PORTNUM" "3" "12/06/2012" "System Programmer's Manual" "URI Functions"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -61,24 +61,14 @@ If an error occurs,
 returns
 \-1, and sets
 \fIerrno\fR
-accordingly\&. If the URI does not have a port number,
+accordingly\&.
+.PP
+If the URI does not have a port number,
 \fBuri_portnum\fR
 returns
-\-1
-and sets
-\fIerrno\fR
-to
-\fBENOENT\fR\&.
-.SH "DIAGNOSTICS"
-.PP
-In the event of an error ocurring,
-\fIerrno\fR
-may be set to:
-.PP
-\fBENOENT\fR
-.RS 4
-The URI does not include a port number\&.
-.RE
+0\&. To distinguish between an absent port number and a port number being specified as
+0, call and check the return value of
+\fBuri_port\fR(3)\&.
 .SH "EXAMPLE"
 .sp
 .if n \{\
@@ -101,4 +91,5 @@ printf("r=%d\en", r);
 .SH "SEE ALSO"
 .PP
 
-\fBliburi\fR(3)\&.
+\fBliburi\fR(3),
+\fBuri_port\fR(3)\&.

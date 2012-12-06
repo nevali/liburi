@@ -117,7 +117,7 @@ hr.footnote-hr {
 	 — obtain a URI's port number
   </p></div>
   
-  <div class="refsect1" id="idp19312"><h2>Library</h2>
+  <div class="refsect1" id="idp768"><h2>Library</h2>
 	
 	<p>URI parsing library (liburi, -luri)</p>
   </div>
@@ -132,14 +132,14 @@ hr.footnote-hr {
 	</div>
   </div>
 
-  <div class="refsect1" id="idp10640"><h2>Description</h2>
+  <div class="refsect1" id="idp10624"><h2>Description</h2>
 	
 	<p>
 	  The <code class="function">uri_portnum</code> returns the port number from a URI.
 	</p>
   </div>
 
-  <div class="refsect1" id="idp6832"><h2>Parameters</h2>
+  <div class="refsect1" id="idp6944"><h2>Parameters</h2>
 	
 	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uri</code></em></span></dt><dd>
 		  <p>
@@ -148,7 +148,7 @@ hr.footnote-hr {
 		</dd></dl></div>
   </div>
 
-  <div class="refsect1" id="idp40512"><h2>Return value</h2>
+  <div class="refsect1" id="idp40496"><h2>Return value</h2>
 	
 	<p>
 	  If the URI has a port number, its value will be returned. The port
@@ -157,26 +157,18 @@ hr.footnote-hr {
 	<p>
 	  If an error occurs, <code class="function">uri_portnum</code> returns
 	  <code class="literal">-1</code>, and sets <code class="varname">errno</code>
-	  accordingly. If the URI does not have a port number,
-	  <code class="function">uri_portnum</code> returns <code class="literal">-1</code>
-	  and sets <code class="varname">errno</code> to <code class="constant">ENOENT</code>.
+	  accordingly.
 	</p>
-  </div>
-
-  <div class="refsect1" id="idp15968"><h2>Diagnostics</h2>
-	
 	<p>
-	  In the event of an error ocurring, <code class="varname">errno</code> may be
-	  set to:
+	  If the URI does not have a port number, <code class="function">uri_portnum</code>
+	  returns <code class="literal">0</code>. To distinguish between an absent port
+	  number and a port number being specified as <code class="literal">0</code>, call
+	  and check the return value of
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_port.3.html" target="_top">uri_port</a></span>(3)</span>.
 	</p>
-	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="constant">ENOENT</code></span></dt><dd>
-		  <p>
-			The URI does not include a port number.
-		  </p>
-		</dd></dl></div>
   </div>
 
-  <div class="refsect1" id="idp42944"><h2>Example</h2>
+  <div class="refsect1" id="idp27376"><h2>Example</h2>
 	
 	<pre class="programlisting">
 URI *uri;
@@ -190,10 +182,11 @@ printf("r=%d\n", r);
 	</pre>
   </div>
 
-  <div class="refsect1" id="idp44480"><h2>See also</h2>
+  <div class="refsect1" id="idp24208"><h2>See also</h2>
 	
 	<p>
-	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>.
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>,
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_port.3.html" target="_top">uri_port</a></span>(3)</span>.
 	</p>
   </div>
   

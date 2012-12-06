@@ -2,12 +2,12 @@
 .\"     Title: uri_port
 .\"    Author: Mo McRoberts
 .\" Generator: DocBook XSL Stylesheets v1.77.1 <http://docbook.sf.net/>
-.\"      Date: 12/05/2012
+.\"      Date: 12/06/2012
 .\"    Manual: URI Functions
 .\"    Source: System Programmer's Manual
 .\"  Language: English
 .\"
-.TH "URI_PORT" "3" "12/05/2012" "System Programmer's Manual" "URI Functions"
+.TH "URI_PORT" "3" "12/06/2012" "System Programmer's Manual" "URI Functions"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -46,6 +46,9 @@ URI parsing library (liburi, \-luri)
 The
 \fBuri_port\fR
 function copies the portion of the URI constituting the port number into the supplied buffer\&.
+.PP
+To obtain the port number as an integer value, use
+\fBuri_portnum\fR(3)\&.
 .SH "PARAMETERS"
 .PP
 \fIuri\fR
@@ -147,4 +150,5 @@ printf("buffer=\*(Aq%s\*(Aq, r=%lu\en", buffer, (unsigned long) r);
 .SH "SEE ALSO"
 .PP
 
-\fBliburi\fR(3)\&.
+\fBliburi\fR(3),
+\fBuri_portnum\fR(3)\&.

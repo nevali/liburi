@@ -74,30 +74,15 @@
 	<para>
 	  If an error occurs, <function>uri_portnum</function> returns
 	  <literal>-1</literal>, and sets <varname>errno</varname>
-	  accordingly. If the URI does not have a port number,
-	  <function>uri_portnum</function> returns <literal>-1</literal>
-	  and sets <varname>errno</varname> to <constant>ENOENT</constant>.
+	  accordingly.
 	</para>
-  </refsect1>
-
-  <refsect1>
-	<title>Diagnostics</title>
 	<para>
-	  In the event of an error ocurring, <varname>errno</varname> may be
-	  set to:
+	  If the URI does not have a port number, <function>uri_portnum</function>
+	  returns <literal>0</literal>. To distinguish between an absent port
+	  number and a port number being specified as <literal>0</literal>, call
+	  and check the return value of
+	  <citerefentry><refentrytitle><ulink url="uri_port.3.html">uri_port</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
-	<variablelist>
-
-	  <varlistentry>
-		<term><constant>ENOENT</constant></term>
-		<listitem>
-		  <para>
-			The URI does not include a port number.
-		  </para>
-		</listitem>
-	  </varlistentry>
-	  
-	</variablelist>
   </refsect1>
 
   <refsect1>
@@ -117,7 +102,8 @@ printf("r=%d\n", r);
   <refsect1>
 	<title>See also</title>
 	<para>
-	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_port.3.html">uri_port</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
   </refsect1>
   

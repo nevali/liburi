@@ -164,21 +164,14 @@ uri_portnum(URI *uri)
 	{
 		return -1;
 	}
-	if(len == 0 || len > sizeof(buffer))
+	if(len == 0 || len > sizeof(buffer) || !buffer[0])
 	{
-		errno = ENOENT;
-		return -1;
-	}
-	if(!buffer[0])
-	{
-		errno = ENOENT;
-		return -1;
+		return 0;
 	}
 	l = strtoul(buffer, &t, 10);
 	if(t && *t)
 	{
-		errno = ENOENT;
-		return -1;
+		return 0;
 	}
 	return (int) l;
 }

@@ -50,6 +50,10 @@
 	  The <function>uri_port</function> function copies the portion of the
 	  URI constituting the port number into the supplied buffer.
 	</para>
+	<para>
+	  To obtain the port number as an integer value, use
+	  <citerefentry><refentrytitle><ulink url="uri_portnum.3.html">uri_portnum</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	</para>
   </refsect1>
 
   <refsect1>
@@ -154,7 +158,8 @@ printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
   <refsect1>
 	<title>See also</title>
 	<para>
-	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+	  <citerefentry><refentrytitle><ulink url="liburi.3.html">liburi</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+	  <citerefentry><refentrytitle><ulink url="uri_portnum.3.html">uri_portnum</ulink></refentrytitle><manvolnum>3</manvolnum></citerefentry>.
 	</para>
   </refsect1>
   

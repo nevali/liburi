@@ -140,9 +140,13 @@ hr.footnote-hr {
 	  The <code class="function">uri_port</code> function copies the portion of the
 	  URI constituting the port number into the supplied buffer.
 	</p>
+	<p>
+	  To obtain the port number as an integer value, use
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_portnum.3.html" target="_top">uri_portnum</a></span>(3)</span>.
+	</p>
   </div>
 
-  <div class="refsect1" id="idp28704"><h2>Parameters</h2>
+  <div class="refsect1" id="idp33248"><h2>Parameters</h2>
 	
 	<div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>uri</code></em></span></dt><dd>
 		  <p>
@@ -168,7 +172,7 @@ hr.footnote-hr {
 		</dd></dl></div>
   </div>
 
-  <div class="refsect1" id="idp42592"><h2>Return value</h2>
+  <div class="refsect1" id="idp44080"><h2>Return value</h2>
 	
 	<p>
 	  If successful, <code class="function">uri_port</code> returns the total number
@@ -205,7 +209,7 @@ hr.footnote-hr {
 	</p>
   </div>
 
-  <div class="refsect1" id="idp53376"><h2>Example</h2>
+  <div class="refsect1" id="idp54864"><h2>Example</h2>
 	
 	<pre class="programlisting">
 #define BUFFER_SIZE 8
@@ -224,10 +228,11 @@ printf("buffer='%s', r=%lu\n", buffer, (unsigned long) r);
 	</pre>
   </div>
 
-  <div class="refsect1" id="idp55088"><h2>See also</h2>
+  <div class="refsect1" id="idp56496"><h2>See also</h2>
 	
 	<p>
-	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>.
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="liburi.3.html" target="_top">liburi</a></span>(3)</span>,
+	  <span class="citerefentry"><span class="refentrytitle"><a class="ulink" href="uri_portnum.3.html" target="_top">uri_portnum</a></span>(3)</span>.
 	</p>
   </div>
   
