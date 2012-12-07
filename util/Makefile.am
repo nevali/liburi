@@ -12,6 +12,7 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-bin_PROGRAMS = uriparse
+bin_PROGRAMS = uriparse liburi-config
 
 uriparse_LDADD = ../liburi.la
+

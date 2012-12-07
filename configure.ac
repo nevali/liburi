@@ -30,6 +30,23 @@ LIBURI_ENABLE_NLS
 LIBURI_CC_WARN
 LIBURI_CONFIG_URIPARSER
 
+dnl Determine installation paths so that liburi-config can work
+if test x"$prefix" = x"NONE" ; then
+   prefix="$ac_default_prefix"
+fi
+dir=`eval echo $prefix`
+AC_DEFINE_UNQUOTED([PREFIX], ["$dir"], [Installation prefix])
+
+if test x"$exec_prefix" = x"NONE" ; then
+   exec_prefix="$prefix"
+fi
+dir=`eval echo $exec_prefix`
+AC_DEFINE_UNQUOTED([EXEC_PREFIX], ["$dir"], [Platform-specific installation prefix])
+dir=`eval echo $libdir`
+AC_DEFINE_UNQUOTED([LIBDIR], ["$dir"], [Library installation path])
+dir=`eval echo $includedir`
+AC_DEFINE_UNQUOTED([INCLUDEDIR], ["$dir"], [C headers installation path])
+
 AC_CONFIG_FILES([Makefile
 m4/Makefile
 util/Makefile
