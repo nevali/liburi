@@ -176,6 +176,83 @@ uri_portnum(URI *uri)
 	return (int) l;
 }
 
+URI_INFO *
+uri_info(URI *uri)
+{
+	URI_INFO *p;
+	char *buf;
+	size_t buflen, r;
+
+	buflen = 0;
+#define getbuf(component) \
+	r = uri_get_(&(uri->uri.component), NULL, 0);	  \
+	if(r == (size_t) -1)							  \
+	{												  \
+		return NULL;								  \
+	}												  \
+	buflen += r;
+
+	getbuf(scheme);
+	getbuf(userInfo);
+	getbuf(hostText);
+	r = uri_path(uri, NULL, 0);
+	if(r == (size_t) -1)
+	{
+		return NULL;
+	}
+	buflen += r;
+	getbuf(query);
+	getbuf(fragment);
+
+#undef getbuf
+	p = (URI_INFO *) calloc(1, sizeof(URI_INFO));
+	if(!p)
+	{
+		return NULL;
+	}
+	buf = (char *) calloc(1, buflen);
+	if(!buf)
+	{
+		free(p);
+		return NULL;
+	}
+	p->internal = buf;
+#define getbuf(component, member)						\
+	r = uri_get_(&(uri->uri.component), buf, buflen);	\
+	if(r)												\
+	{													\
+		p->member = buf;								\
+		buf += r;										\
+		buflen -= r;									\
+	}
+
+	getbuf(scheme, scheme);
+	getbuf(userInfo, auth);
+	getbuf(hostText, host);
+	p->port = uri_portnum(uri);
+	r = uri_path(uri, buf, buflen);
+	if(r)
+	{
+		p->path = buf;
+		buf += r;
+		buflen -= r;
+	}
+	getbuf(query, query);
+	getbuf(fragment, fragment);
+
+#undef getbuf  
+	return p;
+}
+	
+/* Free a URI_INFO structure */
+int
+uri_info_destroy(URI_INFO *info)
+{
+	free(info->internal);
+	free(info);
+	return 0;
+}
+
 static ssize_t
 uri_get_(UriTextRangeA *restrict range, char *restrict buf, size_t bufsize)
 {

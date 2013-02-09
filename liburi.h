@@ -21,6 +21,23 @@
 
 typedef struct uri_struct URI;
 
+typedef struct uri_info_struct URI_INFO;
+
+/* Note that excepting the 'internal' member, URI_INFO can be safely
+ * modified by the calling application if it's convenient to do so.
+ */
+struct uri_info_struct
+{
+	void *internal;
+	char *scheme;
+	char *auth;
+	char *host;
+	int port;
+	char *path;
+	char *query;
+	char *fragment;
+};
+
 # if (!defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L) && !defined(restrict)
 #  define restrict
 # endif
@@ -72,6 +89,12 @@ extern "C" {
 
 	/* Copy the whole URI, as a string, into the buffer provided */
 	size_t uri_str(URI *restrict uri, char *restrict buf, size_t buflen);
+
+	/* Copy the various parts of the URI to a URI_INFO structure */
+	URI_INFO *uri_info(URI *uri);
+	
+	/* Free a URI_INFO structure */
+	int uri_info_destroy(URI_INFO *info);
 
 # if defined(__cplusplus)
 }
