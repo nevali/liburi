@@ -23,7 +23,7 @@
   </refmeta>
   
   <refnamediv>
-	<refname>uri_absolute</refname>
+	<refname>uri_absolute_path</refname>
 	<refpurpose>determine whether the path in a URI is relative or absolute</refpurpose>
   </refnamediv>
   
