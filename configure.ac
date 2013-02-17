@@ -25,27 +25,12 @@ AC_PROG_CXX
 AC_HEADER_STDC
 AC_PROG_LIBTOOL
 
-LIBURI_BUILD_DOCS
-LIBURI_ENABLE_NLS
-LIBURI_CC_WARN
+BT_PROG_CC_WARN
+BT_DEFINE_PREFIX
+BT_BUILD_DOCS
+BT_ENABLE_NLS
+
 LIBURI_CONFIG_URIPARSER
-
-dnl Determine installation paths so that liburi-config can work
-if test x"$prefix" = x"NONE" ; then
-   prefix="$ac_default_prefix"
-fi
-dir=`eval echo $prefix`
-AC_DEFINE_UNQUOTED([PREFIX], ["$dir"], [Installation prefix])
-
-if test x"$exec_prefix" = x"NONE" ; then
-   exec_prefix="$prefix"
-fi
-dir=`eval echo $exec_prefix`
-AC_DEFINE_UNQUOTED([EXEC_PREFIX], ["$dir"], [Platform-specific installation prefix])
-dir=`eval echo $libdir`
-AC_DEFINE_UNQUOTED([LIBDIR], ["$dir"], [Library installation path])
-dir=`eval echo $includedir`
-AC_DEFINE_UNQUOTED([INCLUDEDIR], ["$dir"], [C headers installation path])
 
 AC_CONFIG_FILES([Makefile
 m4/Makefile

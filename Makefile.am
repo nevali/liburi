@@ -12,7 +12,7 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 -I .
 
 SUBDIRS = uriparser . t util m4
 
