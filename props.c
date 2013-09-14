@@ -253,6 +253,13 @@ uri_info_destroy(URI_INFO *info)
 	return 0;
 }
 
+/* Compare two URIs and test for equality */
+int
+uri_equal(URI *a, URI *b)
+{
+	return uriEqualsUriA(&(a->uri), &(b->uri));
+}
+
 static ssize_t
 uri_get_(UriTextRangeA *restrict range, char *restrict buf, size_t bufsize)
 {

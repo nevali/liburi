@@ -96,6 +96,9 @@ extern "C" {
 	/* Free a URI_INFO structure */
 	int uri_info_destroy(URI_INFO *info);
 
+	/* Compare two URIs and test for equality */
+	int uri_equal(URI *a, URI *b);
+	
 # if defined(__cplusplus)
 }
 # endif
