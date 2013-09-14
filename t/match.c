@@ -91,7 +91,7 @@ test_urimatch(const char *file, struct urimatch *tests)
 		{
 			didfail += testlen(file, "recomposed string", uri, &(tests[c]), uri_str, tests[c].recomposedlen);
 		}
-		if(tests[c].testmask && UM_ABSOLUTE)
+		if(tests[c].testmask & UM_ABSOLUTE)
 		{
 			if((r = uri_absolute(uri)) != tests[c].absolute)
 			{
