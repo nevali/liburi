@@ -62,10 +62,6 @@ uri_fragment(URI *restrict uri, char *restrict buf, size_t buflen)
 int
 uri_absolute_path(URI *uri)
 {
-	if(!uri->uri.pathHead)
-	{
-		return 0;
-	}
 	if(uri->uri.absolutePath == URI_TRUE)
 	{
 		return 1;
@@ -98,7 +94,7 @@ uri_path(URI *restrict uri, char *restrict buf, size_t buflen)
 	char *bp;
 	UriPathSegmentA *p;
 	
-	if(!uri->uri.pathHead)
+	if(!uri->uri.pathHead && !uri->uri.absolutePath)
 	{
 		if(buf && buflen)
 		{
