@@ -40,3 +40,22 @@ uri_str(URI *restrict uri, char *restrict buf, size_t buflen)
 	}
 	return bufsize;
 }
+
+/* Allocate a new string using malloc() and copy the URI into it */
+char *
+uri_stralloc(URI *restrict uri)
+{
+	size_t needed;
+	char *str;
+	
+	needed = uri_str(uri, NULL, 0);
+	str = NULL;
+	if(!needed ||
+		(str = (char *) malloc(needed)) == NULL ||
+		uri_str(uri, str, needed) != needed)
+	{
+		free(str);
+		return NULL;
+	}
+	return str;
+}

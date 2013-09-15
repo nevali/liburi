@@ -90,6 +90,9 @@ extern "C" {
 	/* Copy the whole URI, as a string, into the buffer provided */
 	size_t uri_str(URI *restrict uri, char *restrict buf, size_t buflen);
 
+	/* Allocate a new string using malloc() and copy the URI into it */
+	char *uri_stralloc(URI *restrict uri);
+
 	/* Copy the various parts of the URI to a URI_INFO structure */
 	URI_INFO *uri_info(URI *uri);
 	
