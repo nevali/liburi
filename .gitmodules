@@ -1,6 +1,6 @@
 [submodule "uriparser"]
 	path = uriparser
-	url = git://uriparser.git.sourceforge.net/gitroot/uriparser/uriparser
+	url = git://github.com/nevali/uriparser.git
 [submodule "m4"]
 	path = m4
 	url = git://github.com/nevali/m4.git
