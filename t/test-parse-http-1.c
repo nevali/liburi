@@ -44,7 +44,7 @@ static struct urimatch tests[] = {
 	  "/bar;par", 9,
 	  "b", 2,
 	  "c", 2, 
-	  -1,
+	  0,
 	  1,
 	  "http://foo/bar;par?b#c", 23,
 	  UM_ALL },
