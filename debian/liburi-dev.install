@@ -1,3 +1,4 @@
 usr/lib/liburi.a
+usr/lib/pkgconfig/liburi.pc
 usr/include/liburi.h
 usr/bin/liburi-config

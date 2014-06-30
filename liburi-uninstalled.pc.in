@@ -4,6 +4,7 @@ libdir=@abs_top_srcdir@
 includedir=@abs_top_srcdir@
 
 Name: @PACKAGE_NAME@ (uninstalled)
+Description: @PACKAGE_DESC@
 URL: @PACKAGE_URL@
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -luri

@@ -16,6 +16,12 @@ ACLOCAL_AMFLAGS = -I m4 -I .
 
 SUBDIRS = uriparser . t util m4
 
+DISTCLEANFILES = liburi.pc liburi-uninstalled.pc
+
+pkgconfigdir = $(libdir)/pkgconfig
+
+pkgconfig_DATA = liburi.pc
+
 doc_DATA = README.md LICENSE-2.0 TODO \
 	liburi.3.html \
 	uri_create_str.3.html uri_create_uri.3.html uri_destroy.3.html \

@@ -12,7 +12,10 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-AC_INIT([liburi],[master])
+AC_INIT([liburi],[master], [https://github.com/nevali/liburi/issues],,[https://github.com/nevali/liburi])
+PACKAGE_DESC="URI parsing library"
+AC_SUBST([PACKAGE_DESC])
+
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([foreign])
