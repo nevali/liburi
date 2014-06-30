@@ -1,0 +1,9 @@
+*.substvars
+*.log
+*.debhelper
+/files
+/tmp
+/liburi
+/liburi-dev
+/uri-utils
+

@@ -1,0 +1,21 @@
+Source: liburi
+Section: web
+Priority: extra
+Maintainer: Mo McRoberts <mo.mcroberts@bbc.co.uk>
+Build-Depends: debhelper (>= 8.0.0)
+
+Package: liburi
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: URI parsing library
+
+Package: liburi-dev
+Architecture: any
+Depends: ${misc:Depends}, liburi
+Description: URI parsing library (development files)
+
+Package: uri-utils
+Architecture: any
+Depends: ${misc:Depends}, liburi
+Description: URI parsing library (command-line utilities)
+
